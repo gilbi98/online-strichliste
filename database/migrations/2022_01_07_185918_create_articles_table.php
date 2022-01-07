@@ -16,9 +16,9 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('price');
             $table->bigInteger('tallysheet')->unsigned()->nullable();
             $table->foreign('tallysheet')->references('id')->on('tallysheets')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

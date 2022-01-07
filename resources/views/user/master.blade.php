@@ -31,7 +31,7 @@
                     <a href="" class="mr-1" data-toggle="tooltip" title="Home"><i class="bi bi-house-door fa-2x"></i></a>
                 </div>
                 <div class="col">
-                    <a href="" class="mr-1" data-toggle="tooltip" title="Warenkorb"><i class="bi bi-cart fa-2x"></i></a>
+                    <a href="{{ route('cart') }}" class="mr-1" data-toggle="tooltip" title="Warenkorb"><i class="bi bi-cart fa-2x"></i></a>
                 </div>
                 <!--<div class="col">
                     <a href="" class="m-1" data-toggle="tooltip" title="Ident Verfahren"><i class="bi bi-upc-scan fa-2x"></i></a>
