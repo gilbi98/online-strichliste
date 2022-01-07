@@ -12,9 +12,9 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('nickname');
+            $table->string('nickname')->nullable();
             $table->string('email')->unique();
-            $table->double('guthaben')->default(0);
+            $table->double('credit')->default(0);
             $table->integer('role')->default(0);
             $table->integer('pc1')->nullable();
             $table->integer('pc2')->nullable();
