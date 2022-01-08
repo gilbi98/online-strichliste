@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Purchase;
+use App\Position;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
@@ -15,13 +16,31 @@ class PurchaseController extends Controller
         //
     }
 
+    /**
+     * 1. create type of purchase through calling different methods
+     * 2. store purchase
+     * 3. store purchase in position
+     */
     public function createPurchaseWithoutCategory(Request $request)
-    {
+    { 
+
         $user = Auth::user()->id;
         $article = $request->input('article');
         $quantity = $request->input('quantity');
 
-        $purchase = $this->create($user, $article, $quantity);
+        $purchase = $this->store($user, $article, $quantity);
+
+        return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
+    }
+
+    public function createPurchaseWithCategory(Request $request)
+    { 
+
+        $user = Auth::user()->id;
+        $article = $request->input('article');
+        $quantity = $request->input('quantity');
+
+        $purchase = $this->store($user, $article, $quantity);
 
         return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
     }
@@ -29,7 +48,7 @@ class PurchaseController extends Controller
     /**
      * Create purchase
      */
-    public function create($user, $article, $quantity)
+    private function store($user, $article, $quantity)
     {
         $purchase = new Purchase;   
         $purchase->user = $user;
@@ -37,7 +56,36 @@ class PurchaseController extends Controller
         $purchase->quantity = $quantity;
         $purchase->save();
 
-        return true;
+        $this->storePosition($user, $article, $quantity);
+    }
+
+    public function storePosition($user, $article, $quantity)
+    {
+        if(DB::table('positions')->where('user', $user)->where('article', $article)->exists()){
+            
+            $quantity_old = DB::table('positions')
+                ->where('user', $user)
+                ->where('article', $article)
+                ->pluck('quantity')
+                ->first();
+
+            $quantity_new = $quantity_old + $quantity;
+            
+            DB::table('positions')
+                ->where('user', $user)
+                ->where('article', $article)
+                ->update(['quantity' => $quantity_new]);
+        }
+        else{
+
+            $position = new Position;
+            $position->user = $user;
+            $position->article = $article;
+            $position->quantity = $quantity;
+            $position->save();
+
+        }
+
     }
 
     /**
@@ -46,7 +94,7 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
         //
     }

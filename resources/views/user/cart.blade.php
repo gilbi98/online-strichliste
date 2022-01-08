@@ -42,8 +42,37 @@
                              <!-- check if tallysheet has articles -->
                             @if($articles->count() > 0)
                                         <!-- check if categories exist for showing categories or not -->
-                                        @if($categories_exist == true)
+                                        @if($categories->count() > 0)
                                             
+                                        <form method="post" action="{{route('createPurchaseWithCategory')}}">
+                                                @csrf
+                                                <!-- if no categories exist only one dropdown is necessary -->
+                                                <div class="form-group">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
+                                                    
+                                                    <select class="form-control" id="category" name="category">
+                                                        @foreach($categories as $category)
+                                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                
+                                                    <select class="form-control mt-2" id="article" name="article">
+                                                        @foreach($articles as $article)
+                                                            <option value="{{$article->id}}">{{$article->name}}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                    <select class="form-control mt-2 py-0" id="quantity" name="quantity">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                    </select>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary">Speichern</button>
+                                            </form>
 
                                         @else
 
@@ -59,13 +88,11 @@
                                                     </select>
 
                                                     <select class="form-control mt-2 py-0" id="quantity" name="quantity">
-                                                        @foreach($articles as $article)
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
                                                             <option value="4">4</option>
                                                             <option value="5">5</option>
-                                                        @endforeach
                                                     </select>
                                                 </div>
 

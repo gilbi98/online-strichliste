@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Position extends Model
 {
     protected $fillable = [
-        'id', 'name', 'price', 'category', 'tallysheet',
+        'id', 'user', 'article', 'quantity',
     ];
 
     public $timestamps = false;
