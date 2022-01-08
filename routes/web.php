@@ -16,4 +16,6 @@ Route::post('/new-purchase-without-category', 'PurchaseController@createPurchase
 
 Route::post('/new-purchase-with-category', 'PurchaseController@createPurchaseWithCategory')->name('createPurchaseWithCategory');
 
-Route::get('/bills', 'BillController@index')->name('bills');
+Route::get('/bills', 'BillController@bills_index')->name('bills');
+
+Route::get('/bill/{id}', 'BillController@bill_index')->name('bill');

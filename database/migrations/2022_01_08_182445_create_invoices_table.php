@@ -18,6 +18,8 @@ class CreateInvoicesTable extends Migration
             $table->timestamps();
             $table->bigInteger('created_from')->unsigned()->nullable();
             $table->foreign('created_from')->references('id')->on('users')->onDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->integer('bills_total');
             $table->integer('bills_open');
             $table->double('amount_total');

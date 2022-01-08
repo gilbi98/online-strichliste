@@ -9,9 +9,9 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Guthaben</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Betrag</div>
                                 
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{Auth::user()->credit}}&#8364;</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($amount,2)}}&#8364;</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
@@ -26,9 +26,9 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Offene Entnahmen</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Zeitraum</div>
                             
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($total_positions,2)}}&#8364;</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{date('d.m.Y', strtotime($start_date))}} - {{date('d.m.Y', strtotime($end_date))}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
@@ -43,9 +43,9 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Offene Rechnungen</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Frist</div>
                             
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$open_bills}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{date('d.m.Y', strtotime($term))}} </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
@@ -60,9 +60,15 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Offene Beträge</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Status</div>
                             
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($total_bills,2)}}&#8364;</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @if($open == 1)
+                                    <i class="bi bi-check-lg fa-2x "></i>
+                                @else
+                                    <i class="bi bi-check-lg fa-2x text-success"></i>
+                                @endif
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
@@ -73,11 +79,10 @@
         </div>
 
     </div>
-
     <div class="row justify-content-center">
-    	<div class="col-xl-4 mb-2 ml-0 mt-2">
-            <div class="card h-100 py-1">
-                <div class="card-body">
+    	    <div class="col-xl-8 mb-2 ml-0 mt-2">
+                <div class="card h-100 py-1">
+                    <div class="card-body">
     
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Offene Entnahmen</div>
         
@@ -100,52 +105,13 @@
                             @endforeach
                         </table>
                     @else
-                        Keine Entnahmen seit der letzten Abrechnung vorhanden
+                        Keine Rechnungsposten vorhanden. Bitte wenden Sie sich an Ihren Administrator.
                     @endif
 
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-4 mb-2 ml-0 mt-2">
-            <div class="card h-100 py-1">
-                <div class="card-body">
-    
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Rechnungen</div>
-        
-                    @if($bills->count() > 0)
-
-                        <table class="table">
-                            <tr class="font-weight-bold">
-                                <td>Datum</td>
-                                <td>Betrag</td>
-                                <td>Status</td>
-                            </tr>
-
-                            @foreach($bills as $bill)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('bill', $bill->id) }}">{{date('d.m.Y', strtotime($bill->created_at))}}</a>
-                                </td>
-                                <td>{{number_format($bill->total,2)}}&#8364;</td>                
-                                <td>
-                                    @if($bill->open == 0)
-                                        <span class="badge badge-pill badge-success">beglichen</span>
-                                    @else 
-                                        <span class="badge badge-pill badge-secondary">beglichen</span>
-                                    @endif
-                                </td>
-                            </tr>
-                                @endforeach
-                            </table>
-
-                    @else
-                        Keine Rechnungen vorhanden
-                    @endif
-
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
