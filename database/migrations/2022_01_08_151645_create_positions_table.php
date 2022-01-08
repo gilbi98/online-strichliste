@@ -20,6 +20,7 @@ class CreatePositionsTable extends Migration
             $table->bigInteger('article')->unsigned()->nullable();
             $table->foreign('article')->references('id')->on('articles');
             $table->integer('quantity');
+            $table->double('amount')->nullable();
         });
     }
 

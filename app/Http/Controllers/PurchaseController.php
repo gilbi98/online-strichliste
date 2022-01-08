@@ -59,6 +59,9 @@ class PurchaseController extends Controller
         $this->storePosition($user, $article, $quantity);
     }
 
+    /**
+     * Create purchase in users positions
+     */
     public function storePosition($user, $article, $quantity)
     {
         if(DB::table('positions')->where('user', $user)->where('article', $article)->exists()){
@@ -70,11 +73,13 @@ class PurchaseController extends Controller
                 ->first();
 
             $quantity_new = $quantity_old + $quantity;
+
+            $amount_new = $this->getNewPositionAmount($user, $article, $quantity);
             
             DB::table('positions')
                 ->where('user', $user)
                 ->where('article', $article)
-                ->update(['quantity' => $quantity_new]);
+                ->update(['quantity' => $quantity_new, 'amount' => $amount_new]);
         }
         else{
 
@@ -82,10 +87,40 @@ class PurchaseController extends Controller
             $position->user = $user;
             $position->article = $article;
             $position->quantity = $quantity;
+            $position->amount = $this->getPurchaseAmount($article, $quantity);
             $position->save();
 
         }
 
+    }
+
+    public function getNewPositionAmount($user, $article, $quantity)
+    {   
+        $amount_old = DB::table('positions')
+            ->where('user', $user)
+            ->where('article', $article)
+            ->pluck('amount')
+            ->first();
+
+        $price = $this->getArticlePrice($article);
+
+        $costs = $quantity * $price;
+
+        $amount_new = $amount_old + $costs;
+
+        return $amount_new;
+    }
+
+    public function getArticlePrice($article)
+    {
+        return DB::table('articles')->where('id', $article)->pluck('price')->first();
+    }
+
+    public function getPurchaseAmount($article, $quantity)
+    {
+        $price = DB::table('articles')->where('id', $article)->pluck('price')->first();
+
+        return $price * $quantity;
     }
 
     /**

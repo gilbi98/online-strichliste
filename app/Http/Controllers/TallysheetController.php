@@ -21,14 +21,7 @@ class TallysheetController extends Controller
         $categories = DB::table('categories')
             ->get();
 
-        if(Category::where('tallysheet', 1)->exists()){
-            $categories_exist = true;
-        }
-        if(Category::where('tallysheet', 1)->doesntExist()){
-            $categories_exist = false;
-        }
-
-        return view('user.cart')->with(compact('articles', 'categories_exist', 'categories'));
+        return view('user.cart')->with(compact('articles', 'categories'));
     }
 
     public function create()
