@@ -39,16 +39,55 @@
                     <div class="container-fluid">
                         <div class="row justify-content-center">
                             <div class="col-12">
-                                @if(session()->has('message'))
-                                    <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
-                                        {{session()->get('message') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                @endif
+                             <!-- check if tallysheet has articles -->
+                            @if($articles->count() > 0)
+                                        <!-- check if categories exist for showing categories or not -->
+                                        @if($categories_exist == true)
+                                            
+
+                                        @else
+
+                                            <form method="post" action="{{route('createPurchaseWithoutCategory')}}">
+                                                @csrf
+                                                <!-- if no categories exist only one dropdown is necessary -->
+                                                <div class="form-group">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
+                                                    <select class="form-control" id="article" name="article">
+                                                        @foreach($articles as $article)
+                                                            <option value="{{$article->id}}">{{$article->name}}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                    <select class="form-control mt-2 py-0" id="quantity" name="quantity">
+                                                        @foreach($articles as $article)
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary">Speichern</button>
+                                            </form>
+
+                                        @endif
+                            @else
+                                Keine Artikel hinterlegt. Wenden Sie sich bitte an Ihren Administrator.
+                            @endif
+                                
+                            @if(session()->has('message'))
+                                <div class="alert mt-2 {{ Session::get('alert-class', 'alert-info') }}">
+                                    {{session()->get('message') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            @endif
+                                                                    
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

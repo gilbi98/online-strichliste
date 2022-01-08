@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tallysheet extends Model
+class Purchase extends Model
 {
     protected $fillable = [
-        
+        'id', 'user', 'article', 'quantity',
     ];
 }

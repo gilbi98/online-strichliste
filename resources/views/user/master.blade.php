@@ -28,7 +28,7 @@
         <div class="container container-fluid m-0">
             <div class="row">
                 <div class="col">
-                    <a href="" class="mr-1" data-toggle="tooltip" title="Home"><i class="bi bi-house-door fa-2x"></i></a>
+                    <a href="{{ route('home') }}" class="mr-1" data-toggle="tooltip" title="Home"><i class="bi bi-house-door fa-2x"></i></a>
                 </div>
                 <div class="col">
                     <a href="{{ route('cart') }}" class="mr-1" data-toggle="tooltip" title="Warenkorb"><i class="bi bi-cart fa-2x"></i></a>

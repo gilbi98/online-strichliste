@@ -3,13 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Tallysheet;
+use App\Article;
+use App\Category;
 use Illuminate\Http\Request;
+use DB;
+use Auth;
+use Redirect;
+use Session;
 
 class TallysheetController extends Controller
 {
     public function index()
     {
-        return view('user.cart');
+        $articles = DB::table('articles')
+            ->get();
+
+        if(Category::where('tallysheet', 1)->exists()){
+            $categories_exist = true;
+        }
+        if(Category::where('tallysheet', 1)->doesntExist()){
+            $categories_exist = false;
+        }
+
+        return view('user.cart')->with(compact('articles', 'categories_exist'));
     }
 
     public function create()
