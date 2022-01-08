@@ -37,7 +37,7 @@
                     <a href="" class="m-1" data-toggle="tooltip" title="Ident Verfahren"><i class="bi bi-upc-scan fa-2x"></i></a>
                 </div>!-->
                 <div class="col">
-                    <a href=""  class="mr-1" data-toggle="tooltip" title="Abrechnung"><i class="bi bi-clipboard-x fa-2x"></i></a>
+                    <a href="{{ route('bills') }}"  class="mr-1" data-toggle="tooltip" title="Abrechnung"><i class="bi bi-clipboard-x fa-2x"></i></a>
                 </div>
             </div>
         </div>
