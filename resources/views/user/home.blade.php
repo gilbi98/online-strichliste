@@ -6,7 +6,7 @@
         <div class="col-xl-8 mb-2 ml-0 mt-2">
             <div class="card h-100 py-1">
                 <div class="card-body">
-                    <div class="text-xl font-weight-bold text-success">Moin {{Auth::user()->firstname}}</div>
+                    <div class="text-xl text-success">Moin {{Auth::user()->firstname}}</div>
                 </div>
             </div>
         </div>

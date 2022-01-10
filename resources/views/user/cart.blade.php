@@ -3,30 +3,7 @@
 @section('content')
 
 @section('head')
-    <!-- accordion style -->
-    <style>
-        .accordion {
-            background-color: white;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            text-align: left;
-            border: none;
-            outline: none;
-            transition: 0.4s;
-        }
-        .active, .accordion:hover {
-            background-color: #eee;
-        }
-        .panel {
-            padding: 0 18px;
-            background-color: white;
-            display: none;
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  
+     
 @endsection
 
 @section('content')
@@ -51,12 +28,14 @@
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
                                                     
                                                     <select class="form-control" id="category" name="category">
+                                                        <option value="null"> </option>
                                                         @foreach($categories as $category)
                                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 
                                                     <select class="form-control mt-2" id="article" name="article">
+                                                        <option value="null"> </option>
                                                         @foreach($articles as $article)
                                                             <option value="{{$article->id}}">{{$article->name}}</option>
                                                         @endforeach
@@ -76,12 +55,13 @@
 
                                         @else
 
-                                            <form method="post" action="{{route('createPurchaseWithoutCategory')}}">
+                                            <form method="post" action="{{route('createPurchaseWithoutCategoryOutside')}}">
                                                 @csrf
                                                 <!-- if no categories exist only one dropdown is necessary -->
                                                 <div class="form-group">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
                                                     <select class="form-control" id="article" name="article">
+                                                        <option value="null"> </option>
                                                         @foreach($articles as $article)
                                                             <option value="{{$article->id}}">{{$article->name}}</option>
                                                         @endforeach
@@ -110,7 +90,15 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </div>
                             @endif
-                                                                    
+
+                            @if($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert mt-2 {{ Session::get('alert-class', 'alert-danger') }}">
+                                        {{$error}}
+                                    </div>
+                                @endforeach
+                            @endif
+                                                                                                
                             </div>
                         </div>
                     </div>
@@ -120,26 +108,5 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            /* Toggle between adding and removing the "active" class,
-            to highlight the button that controls the panel */
-            this.classList.toggle("active");
-            /* Toggle between hiding and showing the active panel */
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-            panel.style.display = "none";
-            } else {
-            panel.style.display = "block";
-            }
-        });
-    }
-</script>
 
 @endsection

@@ -24,6 +24,17 @@ class TallysheetController extends Controller
         return view('user.cart')->with(compact('articles', 'categories'));
     }
 
+    public function outside_index()
+    {
+        $articles = DB::table('articles')
+            ->get();
+
+        $categories = DB::table('categories')
+            ->get();
+
+        return view('outside.cart')->with(compact('articles', 'categories'));
+    }
+
     public function create()
     {
         //

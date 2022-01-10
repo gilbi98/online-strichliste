@@ -84,7 +84,7 @@
                 <div class="card h-100 py-1">
                     <div class="card-body">
     
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Offene Entnahmen</div>
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Rechnungsposten</div>
         
                     @if($positions->count() > 0)
                         <table class="table">

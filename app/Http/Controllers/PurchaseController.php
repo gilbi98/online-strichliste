@@ -24,6 +24,11 @@ class PurchaseController extends Controller
     public function createPurchaseWithoutCategory(Request $request)
     { 
 
+        $this->validate($request, [
+            'article' => 'required|numeric',
+            'quantity' => 'required|integer',
+        ]);
+
         $user = Auth::user()->id;
         $article = $request->input('article');
         $quantity = $request->input('quantity');
@@ -36,6 +41,12 @@ class PurchaseController extends Controller
     public function createPurchaseWithCategory(Request $request)
     { 
 
+        $this->validate($request, [
+            'category' => 'required|numeric',
+            'article' => 'required|numeric',
+            'quantity' => 'required|integer',
+        ]);
+
         $user = Auth::user()->id;
         $article = $request->input('article');
         $quantity = $request->input('quantity');
@@ -43,6 +54,74 @@ class PurchaseController extends Controller
         $purchase = $this->store($user, $article, $quantity);
 
         return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
+    }
+
+    public function createPurchaseWithoutCategoryOutside(Request $request)
+    { 
+
+        $this->validate($request, [
+            'article' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'ssn_1' => 'required|integer',
+            'ssn_2' => 'required|integer',
+            'ssn_3' => 'required|integer',
+            'ssn_4' => 'required|integer',
+        ]);
+
+        $sc = 1234;
+
+        $user = $this->getUser($request->input('ssn_1'), $request->input('ssn_2'), $request->input('ssn_3'), $request->input('ssn_4'), $sc);
+        
+        if($user == false){
+            return redirect()->route('outside')->withErrors('PIN nicht korrekt oder kein Cookie hinterlegt');
+        }
+
+        $article = $request->input('article');
+        $quantity = $request->input('quantity');
+
+        $purchase = $this->store($user, $article, $quantity);
+
+        return redirect()->route('outside')->with('message', 'Die Entnahme wurde eingetragen');
+    }
+
+    private function getUser($pc1, $pc2, $pc3, $pc4, $sc)
+    {
+        /**
+        * Check if pin code from form matches
+         */
+        if($user = DB::table('users')->where('pc1', $pc1)->where('pc2', $pc2)->where('pc3', $pc3)->where('pc4', $pc4)->exists()){
+
+            $user = DB::table('users')
+                ->where('pc1', $pc1)
+                ->where('pc2', $pc2)
+                ->where('pc3', $pc3)
+                ->where('pc4', $pc4)
+                ->pluck('id')
+                ->first();
+
+            if($this->checkUserPin($user, $sc) == true){
+                return $user;
+            }
+            else{
+                return false;
+            }
+
+        }
+        
+        else{
+            return false;
+        }
+           
+    }
+
+    private function checkUserPin($user, $sc)
+    {
+        if(DB::table('users')->where('id', $user)->where('sc', $sc)->exists()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**
