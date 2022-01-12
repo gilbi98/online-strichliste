@@ -158,7 +158,7 @@
                                     <div class="form-group">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
                                             <select class="form-control" id="article" name="article">
-                                                <option value="null"> </option>
+                                                <option value=""> </option>
                                                 @foreach($articles as $article)
                                                 <option value="{{$article->id}}">{{$article->name}}</option>
                                                 @endforeach
@@ -221,13 +221,16 @@
                                 </SCRIPT>
 
                             @endif
-                                    
+                            
+                </div>
+            </div>
+        </div>          
                         @else
                             Keine Artikel hinterlegt. Wenden Sie sich bitte an Ihren Administrator.
                         @endif
                                         
                         @if(session()->has('message'))
-                            <div class="alert mt-2 {{ Session::get('alert-class', 'alert-info') }}">
+                            <div class="alert m-4 {{ Session::get('alert-class', 'alert-info') }}">
                                 {{session()->get('message') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             </div>
@@ -235,16 +238,12 @@
 
                         @if($errors->any())
                             @foreach ($errors->all() as $error)
-                                <div class="alert mt-2 {{ Session::get('alert-class', 'alert-danger') }}">
+                                <div class="alert m-4 mt-2 {{ Session::get('alert-class', 'alert-danger') }}">
                                     {{$error}}
                                 </div>
                             @endforeach
                         @endif
                                                                                                                      
-                </div>
-            </div>
-        </div>
-
     </main>
 
     <!-- Bootstrap core JavaScript-->

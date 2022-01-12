@@ -7,6 +7,7 @@ use App\Position;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+/** use Illuminate\Support\Facades\Cookie; */
 
 class PurchaseController extends Controller
 {
@@ -68,7 +69,8 @@ class PurchaseController extends Controller
             'ssn_4' => 'required|integer',
         ]);
 
-        $sc = 1234;
+        $sc = 1234; /** Cookie::get("kiosk_pin"); */
+        
 
         $user = $this->getUser($request->input('ssn_1'), $request->input('ssn_2'), $request->input('ssn_3'), $request->input('ssn_4'), $sc);
         

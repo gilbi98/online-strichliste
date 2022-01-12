@@ -28,14 +28,14 @@
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
                                                     
                                                     <select class="form-control" id="category" name="category">
-                                                        <option value="null"> </option>
+                                                        <option value="null">Kategorie wählen</option>
                                                         @foreach($categories as $category)
                                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 
                                                     <select class="form-control mt-2" id="article" name="article">
-                                                        <option value="null"> </option>
+                                                        <option value="null">Artikel wählen</option>
                                                         @foreach($articles as $article)
                                                             <option value="{{$article->id}}">{{$article->name}}</option>
                                                         @endforeach
@@ -55,13 +55,13 @@
 
                                         @else
 
-                                            <form method="post" action="{{route('createPurchaseWithoutCategoryOutside')}}">
+                                            <form method="post" action="{{route('createPurchaseWithoutCategory')}}">
                                                 @csrf
                                                 <!-- if no categories exist only one dropdown is necessary -->
                                                 <div class="form-group">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
                                                     <select class="form-control" id="article" name="article">
-                                                        <option value="null"> </option>
+                                                        <option value="null">Artikel wählen</option>
                                                         @foreach($articles as $article)
                                                             <option value="{{$article->id}}">{{$article->name}}</option>
                                                         @endforeach

@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -59,7 +60,7 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
+     *  $code = $this->createSystemPin();
      * @param  array  $data
      * @return \App\User
      */
@@ -72,5 +73,27 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    private function createSystemPin(){
+
+        $code = random_int(1000, 999999);
+
+        if($this->checkIfSystemCodeExists($code) == true){
+            $this->createSystemPin();
+        }
+        else{
+            return $code;
+        }
+    }
+
+    private function checkIfSystemCodeExists($code)
+    {
+        if(DB::table('users')->where('sc', $code)->exists()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
