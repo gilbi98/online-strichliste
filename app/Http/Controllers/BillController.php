@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bill;
 use App\Position;
 use App\BillPosition;
+use App\Purchase;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
@@ -36,24 +37,22 @@ class BillController extends Controller
             ->where('open', 1)
             ->sum('total');
         
-        $positions = Position::select(
-                'positions.id',
-                'positions.article',
-                'positions.quantity',
-                'positions.amount',
+        $purchases = Purchase::select(
+                'purchases.created_at AS date',
+                'purchases.quantity AS quantity',
                 'articles.name',
                 'articles.price',
         )
-        ->join('articles', 'positions.article', '=', 'articles.id')
+        ->join('articles', 'purchases.article', '=', 'articles.id')
         ->where('user', Auth::user()->id)
-        ->get();
+        ->paginate(5);
 
         $bills = DB::table('bills')
             ->where('user', Auth::user()->id)
             ->orderBy('id', 'desc')
             ->paginate(5);
 
-        return view('user.bills')->with(compact('total_positions', 'open_bills', 'total_bills', 'positions', 'bills'));
+        return view('user.bills')->with(compact('total_positions', 'open_bills', 'total_bills', 'purchases', 'bills'));
     }
 
     public function bill_index($id)

@@ -9,9 +9,9 @@ class Role
 {
     public function handle($request, Closure $next, $roles){
 
-        //enduser = 0, admin = 1, superadmin = 2
+        //user = 0, admin = 1, superadmin = 2
 
-        if(Auth::user()->role == 0 && $roles == 'enduser' || Auth::user()->role == 1 && $roles == 'enduser'){
+        if(Auth::user()->role == 0 && $roles == 'user' || Auth::user()->role == 1 && $roles == 'user'){
             return $next($request);
         }
         

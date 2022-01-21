@@ -79,23 +79,21 @@
             <div class="card h-100 py-1">
                 <div class="card-body">
     
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Offene Entnahmen</div>
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Letzte Entnahmen</div>
         
-                    @if($positions->count() > 0)
+                    @if($purchases->count() > 0)
                         <table class="table">
                             <tr class="font-weight-bold">
                                 <td>Artikel</td>
                                 <td>Menge</td>
-                                <td>Preis </td>
-                                <td>Kosten</td></tr>
+                                <td>Datum </td>
                             </tr>
 
-                            @foreach($positions as $position)
+                            @foreach($purchases as $purchase)
                             <tr>
-                                <td>{{$position->name}}</td>
-                                <td>{{$position->quantity}}</td>                
-                                <td>{{number_format($position->price,2)}}&#8364;</td>
-                                <td>{{number_format($position->amount,2)}}&#8364;</td>
+                                <td>{{$purchase->name}}</td>
+                                <td>{{$purchase->quantity}}</td>                
+                                <td>{{date('d.m.Y', strtotime($purchase->date))}}</td>
                             </tr>
                             @endforeach
                         </table>

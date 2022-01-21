@@ -46,7 +46,7 @@
         <!-- navbar on the right -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle btn-circle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <button type="button" class="btn btn-success btn-circle">{{Auth::user()->nickname}}</button>
                 </a>
                        

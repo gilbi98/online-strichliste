@@ -9,21 +9,11 @@ use App\Position;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     * 
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $positions = Position::select(
@@ -38,6 +28,12 @@ class HomeController extends Controller
         ->where('user', Auth::user()->id)
         ->get();
 
-        return view('user/home')->with(compact('positions'));
+        return view('user.home')->with(compact('positions'));
+    }
+
+    public function dashboard()
+    {
+
+        return view('admin.dashboard');
     }
 }
