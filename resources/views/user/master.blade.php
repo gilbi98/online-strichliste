@@ -55,10 +55,12 @@
                     <a class="dropdown-item" href="">
                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Profil
                     </a>
-                                
-                    <a class="dropdown-item" href="">
+                    
+                    @if(Auth::user()->role == 1)
+                    <a class="dropdown-item" href="{{ route('dashboard') }}">
                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Admin Bereich
                     </a>
+                    @endif
                                 
                     <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"><i class="bi bi-box-arrow-right"></i> Logout</a>    

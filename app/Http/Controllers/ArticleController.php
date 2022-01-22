@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public $article;
+
+    public function __construct()
+    {
+        $this->article = new Article;
+    }
+
     public function index()
     {
-        //
+        return view('admin.articles', ['articles' => $this->article->getArticles()]);
     }
 
     /**

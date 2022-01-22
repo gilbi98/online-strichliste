@@ -57,22 +57,39 @@
         </svg>
       </div>
       <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-        <li class="nav-item"><a class="nav-link" href="index.html">
+        <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li>
-        <li class="nav-title">Theme</li>
-        <li class="nav-item"><a class="nav-link" href="colors.html">
+            </svg> Dashboard</a>
+        </li>
+        <li class="nav-title">Bestandsmanagement</li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('articles') }}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-            </svg> Colors</a></li>
+            </svg> Artikel</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="">
+            <svg class="nav-icon">
+              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+            </svg> Kategorien</a>
+        </li>
+        <li class="nav-title">Abrechnungsmanagement</li>
         <li class="nav-item"><a class="nav-link" href="typography.html">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-            </svg> Typography</a></li>
-        <li class="nav-title">Components</li>
-        
+            </svg> Entnahmen</a>
         </li>
+        <li class="nav-item"><a class="nav-link" href="typography.html">
+            <svg class="nav-icon">
+              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+            </svg> Abrechnungen</a>
+        </li>
+        <li class="nav-title">Usermanagement</li>
+        <li class="nav-item"><a class="nav-link" href="typography.html">
+            <svg class="nav-icon">
+            <i class="cil-child"></i>
+            </svg> User</a>
+    </li>
         
       </ul>
       <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
@@ -90,8 +107,8 @@
             </svg></a>
           <ul class="header-nav d-none d-md-flex">
             <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Bestände</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Abrechnungen</a></li>
           </ul>
           <ul class="header-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="#">
@@ -109,49 +126,32 @@
           </ul>
           <ul class="header-nav ms-3">
             <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <div class="avatar avatar-md">GH</div>
+                <div class="avatar avatar-md bg-success text-white" style="border-radius: 25px;">GH</div>
               </a>
               <div class="dropdown-menu dropdown-menu-end pt-0">
-                <div class="dropdown-header bg-light py-2">
-                  <div class="fw-semibold">Account</div>
-                </div><a class="dropdown-item" href="#">
+                 
+                <a class="dropdown-item" href="{{ route('home') }}">
                   <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
-                  </svg> Updates<span class="badge badge-sm bg-info ms-2">42</span></a><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
-                  </svg> Messages<span class="badge badge-sm bg-success ms-2">42</span></a><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-task"></use>
-                  </svg> Tasks<span class="badge badge-sm bg-danger ms-2">42</span></a><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-comment-square"></use>
-                  </svg> Comments<span class="badge badge-sm bg-warning ms-2">42</span></a>
-                <div class="dropdown-header bg-light py-2">
-                  <div class="fw-semibold">Settings</div>
-                </div><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                  </svg> Profile</a><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-                  </svg> Settings</a><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-credit-card"></use>
-                  </svg> Payments<span class="badge badge-sm bg-secondary ms-2">42</span></a><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-file"></use>
-                  </svg> Projects<span class="badge badge-sm bg-primary ms-2">42</span></a>
-                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
-                  </svg> Lock Account</a><a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
-                  </svg> Logout</a>
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                  </svg> User-Bereich</a>
+
+                  <a class="dropdown-item" href="{{ route('logout') }}">
+                    <svg class="icon me-2">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                    </svg> Logout</a>
               </div>
             </li>
           </ul>
+        </div>
+        <div class="header-divider"></div>
+        <div class="container-fluid">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb my-0 ms-2">
+              <li class="breadcrumb-item">
+                <!-- if breadcrumb is single--><span>@yield('currentSide')</span>
+              </li>
+            </ol>
+          </nav>
         </div>
         
       </header>
@@ -163,10 +163,7 @@
             
         </div>
       </div>
-      <footer class="footer">
-        <div>Strichliste</div>
-        <div class="ms-auto">Powered by&nbsp;<a href="">Organisation</a></div>
-      </footer>
+
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="{{ asset('css/admin/bundle.min.js') }}"></script>
