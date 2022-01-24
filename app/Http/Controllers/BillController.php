@@ -21,21 +21,7 @@ class BillController extends Controller
 
     public function bills_index()
     {
-        $totol_positions = 0;
-        $open_bills = 0;
-        $total_bills = 0;
-
-        $total_positions = $this->bill->getUsersPositionsAmount(Auth::user()->id);
-
-        $open_bills = $this->bill->getUsersOpenBillsQuantity(Auth::user()->id);
-
-        $total_bills = $this->bill->getUsersOpenBillsAmount(Auth::user()->id);
-        
-        $purchases = $this->bill->getUsersPurchasesPaginate(Auth::user()->id, 5);
-
-        $bills = $this->bill->getUsersBillsPaginate(Auth::user()->id, 5);
-
-        return view('user.bills')->with(compact('total_positions', 'open_bills', 'total_bills', 'purchases', 'bills'));
+        return view('user.bills', ['total_positions' => $this->bill->getUsersPositionsAmount(Auth::user()->id), 'open_bills' => $this->bill->getUsersOpenBillsQuantity(Auth::user()->id), 'total_bills' => $this->bill->getUsersOpenBillsAmount(Auth::user()->id), 'purchases' => $this->bill->getUsersPurchasesPaginate(Auth::user()->id, 5), 'bills' => $this->bill->getUsersBillsPaginate(Auth::user()->id, 5)]);
     }
 
     public function bill_index($id)

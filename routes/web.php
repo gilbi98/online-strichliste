@@ -39,5 +39,9 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('/articles', 'ArticleController@index')->name('articles');
 
+    Route::post('/create-article', 'ArticleController@create')->name('createArticle');
+
+    Route::post('/refill-article', 'ArticleController@refill')->name('refillArticle');
+
 });
 

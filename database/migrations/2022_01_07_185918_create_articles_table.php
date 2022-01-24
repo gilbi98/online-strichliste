@@ -21,6 +21,10 @@ class CreateArticlesTable extends Migration
             $table->foreign('category')->references('id')->on('categories')->onDelete('cascade');
             $table->bigInteger('tallysheet')->unsigned()->nullable();
             $table->foreign('tallysheet')->references('id')->on('tallysheets')->onDelete('cascade');
+            $table->boolean('stock_tracking')->default(0);
+            $table->integer('in_stock')->nullable();
+            $table->integer('min_stock')->nullable();
+            $table->integer('over_min')->nullable();
         });
     }
 

@@ -16,17 +16,29 @@ class Bill extends Model
     //bills overview methods
     public function getUsersPositionsAmount($user)
     {
-        return DB::table('positions')->where('user', $user)->sum('amount');
+        $amount = 0;
+
+        $amount = DB::table('positions')->where('user', $user)->sum('amount');
+
+        return $amount;
     }
 
     public function getUsersOpenBillsQuantity($user)
     {
-        return DB::table('bills')->where('user', $user)->where('open', 1)->count('id');
+        $openBills = 0;
+
+        $openBills = DB::table('bills')->where('user', $user)->where('open', 1)->count('id');
+
+        return $openBills;
     }
 
     public function getUsersOpenBillsAmount($user)
     {
-        return DB::table('bills')->where('user', $user)->where('open', 1)->sum('total');
+        $amount = 0;
+
+        $amount = DB::table('bills')->where('user', $user)->where('open', 1)->sum('total');
+
+        return $amount;
     }
        
     public function getUsersPurchasesPaginate($user, $paginate)
