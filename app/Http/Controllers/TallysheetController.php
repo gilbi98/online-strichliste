@@ -16,7 +16,7 @@ class TallysheetController extends Controller
 
     public function index()
     {
-        $articles = DB::table('articles')->get();
+        $articles = DB::table('articles')->where('status', '=', 1)->get();
 
         $categories = DB::table('categories')->get();
 
@@ -27,7 +27,7 @@ class TallysheetController extends Controller
     {
         $articles = DB::table('articles')->get();
 
-        $categories = DB::table('categories')->get();
+        $categories = DB::table('categories')->where('status', '=', 1)->get();
 
         return view('outside.cart')->with(compact('articles', 'categories'));
     }

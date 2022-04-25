@@ -17,6 +17,8 @@ class CreatePositionsTable extends Migration
             $table->id();
             $table->bigInteger('user')->unsigned()->nullable();
             $table->foreign('user')->references('id')->on('users');
+            $table->bigInteger('bill')->unsigned()->nullable();
+            $table->foreign('bill')->references('id')->on('bills')->onDelete('cascade');
             $table->bigInteger('article')->unsigned()->nullable();
             $table->foreign('article')->references('id')->on('articles');
             $table->integer('quantity');

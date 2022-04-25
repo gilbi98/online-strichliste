@@ -3,83 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Invoice;
+use App\Bill;
+use App\Position;
 use Illuminate\Http\Request;
+use DB;
 
 class InvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public $invoice;
+    public $bill;
+
+    public function __construct()
+    {
+        $this->invoice = new Invoice;
+        $this->bill = new Bill;
+        $this->position = new Position;
+    }
+    
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getLastInvoiceInterval()
     {
-        //
+       return $this->invoice->getLastInvoiceInterval();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function getLastInvoiceDate()
     {
-        //
+       return $this->invoice->getLastInvoiceDate();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Invoice $invoice)
+    public function create(Request $request)
     {
-        //
-    }
+        // 1. create invoice, 2. create bills, 3. create positions 
+        
+        $start = $request->input('start');
+        $end = $request->input('end');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Invoice $invoice)
-    {
-        //
-    }
+        //create invoice only with start and end date
+        $this->invoice->createNewInvoice($start, $end);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Invoice $invoice)
-    {
-        //
-    }
+        //get array with users bill data
+        $billData = $this->bill->getBillData($this->bill->getUsersForBills($start, $end), $start, $end);
+        
+        //create bills
+        $this->bill->createBills($billData);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Invoice $invoice)
-    {
-        //
+        //update bill based invoice data
+        $bills_total = count($billData);
+        $bills_open = $bills_total;
+
+        $amount_total = 0;
+        for($i=0; $i<count($billData); $i++){
+            $amount_total = $amount_total + $billData[$i]['amount'];
+        }
+        $amount_open = $amount_total;
+
+        $invoiceId = DB::table('invoices')->orderBy('id', 'desc')->value('id');
+
+        DB::table('invoices')->where('id', '=', $invoiceId)->update(['bills_total' => $bills_total, 'bills_open' => $bills_open, 'amount_total' => $amount_total,  'amount_open' => $amount_open]);
+
+        //create positions for bills
+        $users = $this->bill->getUsersForBills($start, $end);
+
+        if($this->position->createPositions($users) == 1){
+            //delete purchases
+        }
+
+        return redirect()->route('purchases')->with('message', 'Die Entnahmen wurden abgerechnet');
     }
+   
 }

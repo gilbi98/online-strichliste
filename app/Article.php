@@ -13,7 +13,11 @@ class Article extends Model
         'id', 'name', 'price', 'category', 'tallysheet', 'stock_tracking'
     ];
 
+    protected $table = 'articles';
+
     public $timestamps = false;
+
+
 
     public $category;
 
@@ -24,7 +28,27 @@ class Article extends Model
 
     public function getArticles()
     {
-        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->select('articles.*', 'categories.name AS category')->get();
+        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->select('articles.*', 'categories.name AS category_name')->get();
+    }
+
+    public function getArticlesWithTracking()
+    {
+        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->select('articles.*', 'categories.name AS category_name')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 1)->get();
+    }
+
+    public function getArticlesWithoutTracking()
+    {
+        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->select('articles.*', 'categories.name AS category_name')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 0)->get();
+    }
+
+    public function getArticle($id)
+    {
+        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->where('articles.id', '=', $id)->select('articles.*', 'categories.name AS category')->first();
+    }
+
+    public function getArticlesByCategory($id)
+    {
+        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->where('articles.category', '=', $id)->get();
     }
 
     public function getInStock($article)
@@ -39,6 +63,45 @@ class Article extends Model
         return 1;
     }
 
+    public function updateArticleData($article, $name, $price, $category, $status)
+    {
+        if($status == null){
+            $st = 0;
+        }
+        else{
+            $st = 1;
+        }
+        
+        DB::table('articles')->where('id', '=', $article)->update(['name' => $name, 'price' => $price, 'category' => $category, 'status' => $st]);
+
+        return 1;
+    }
+
+    public function updateArticleStockData($article, $in_stock, $min_stock, $stockTracking)
+    {
+        DB::table('articles')->where(['id' => $article])->update(['in_stock' => $in_stock, 'min_stock' => $min_stock, 'stockTracking' => $stockTracking]);
+    }
+
+    public function updateArticlesStock($request)
+    {
+        $newInStocks = $request->except('_token');
+
+        if(DB::table('categories')->get('id')->count() > 0){
+            $articles = DB::table('articles')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 1)->pluck('id')->where('articles.category', '!=', null)->toarray();
+        }
+        else{
+            $articles = DB::table('articles')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 1)->pluck('id')->where('articles.category', '=', null)->toarray();
+        }
+        
+        for($i=0; $i<count($articles); $i++){
+
+            $currentId = $articles[$i];
+
+            DB::table('articles')->where(['id' => $currentId])->update(['in_stock' => $newInStocks[$currentId] ]);
+
+        }
+        
+    }
     
        
 }

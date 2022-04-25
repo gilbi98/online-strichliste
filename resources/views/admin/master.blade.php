@@ -68,13 +68,13 @@
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
             </svg> Artikel</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="">
+        <li class="nav-item"><a class="nav-link" href="{{ route('categories') }}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
             </svg> Kategorien</a>
         </li>
         <li class="nav-title">Abrechnungsmanagement</li>
-        <li class="nav-item"><a class="nav-link" href="typography.html">
+        <li class="nav-item"><a class="nav-link" href="{{ route('purchases') }}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
             </svg> Entnahmen</a>
@@ -126,7 +126,7 @@
           </ul>
           <ul class="header-nav ms-3">
             <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <div class="avatar avatar-md bg-success text-white" style="border-radius: 25px;">GH</div>
+                <div class="avatar avatar-md bg-success text-white" style="border-radius: 25px;">{{Auth::user()->nickname ?? ''}}</div>
               </a>
               <div class="dropdown-menu dropdown-menu-end pt-0">
                  
@@ -135,7 +135,7 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
                   </svg> User-Bereich</a>
 
-                  <a class="dropdown-item" href="{{ route('logout') }}">
+                  <a class="dropdown-item">
                     <svg class="icon me-2">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
                     </svg> Logout</a>

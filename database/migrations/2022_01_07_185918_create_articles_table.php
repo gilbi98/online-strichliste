@@ -17,15 +17,15 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('name');
             $table->double('price');
-            $table->bigInteger('category')->unsigned()->nullable();
-            $table->foreign('category')->references('id')->on('categories')->onDelete('cascade');
-            $table->bigInteger('tallysheet')->unsigned()->nullable();
-            $table->foreign('tallysheet')->references('id')->on('tallysheets')->onDelete('cascade');
+            $table->foreignId('category')->nullable()->unsigned()->references('id')->on('categories')->nullOnDelete()->cascadeOnUpdate();
             $table->boolean('stock_tracking')->default(0);
             $table->integer('in_stock')->nullable();
             $table->integer('min_stock')->nullable();
             $table->integer('over_min')->nullable();
+            $table->boolean('status')->default(1);
         });
+
+        
     }
 
     /**

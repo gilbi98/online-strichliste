@@ -21,7 +21,7 @@
         @endforeach
     @endif
 
-
+<!-- modals for buttons -->
 <div class="modal fade" id="newArticle" tabindex="-1" aria-labelledby="newArticle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -37,9 +37,12 @@
                     <input class="form-control" id="name" name="name" type="text" placeholder="Name">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="category">Kategorie:</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Keine Kategorie</option>
+                <label class="form-label" for="category">Kategorie:</label>
+                    <select class="form-select" aria-label="Default select example" name="category" id="category">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                        <option value="null">Keine Kategorie</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -80,9 +83,9 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label" for="category">Artikel:</label>
-                    <select class="form-select" aria-label="Default select example" id="article" name="article">
+                    <select class="form-select" aria-label="Default select example" id="article" name="article" required>
                         <option>Artikel wählen</option>
-                        @foreach($articles as $article)
+                        @foreach($articlesWithTracking as $article)
                             <option value="{{$article->id}}">{{$article->name}}</option>
                         @endforeach
                     </select>
@@ -102,8 +105,9 @@
         </div>
     </div>
 </div>
+<!-- buttons and content below -->
 <div class="container-lg">
-    <button class="btn btn-secondary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newArticle">
+    <button class="btn btn-outline-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newArticle">
         <svg class="icon me-2">
             <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
         </svg>Neuer Artikel
@@ -114,7 +118,7 @@
         </svg>Artikel auffüllen
     </button>
 
-    <div class="card mb-4">
+    <div class="card mb-2">
         <div class="card-header">Alle Artikel</div>
             <div class="card-body">
                 <div class="row">
@@ -132,7 +136,12 @@
                             @foreach($articles as $article)
                             <tr class="align-middle">
                                 <td>
-                                    {{$article->id}}
+                                    <div>{{$article->id}}</div>
+                                    <div class="small text-medium-emphasis">
+                                        <span>
+                                            @if($article->status == 1) sichtbar @else nicht sichtbar @endif
+                                        </span>
+                                    </div>
                                 </td>
                                 <td>
                                     <div>{{$article->name}}</div>
@@ -143,14 +152,14 @@
                                         @if($article->category == null)
                                              -
                                         @else
-                                            {{$article->category}}
+                                            {{$article->category_name}}
                                         @endif
                                     </div>
                                 </td>
                                 <td>
                                     @if($article->stock_tracking == 1)
                                         {{$article->in_stock}}
-                                        @if($article->over_min > 0)
+                                        @if($article->over_min >= 0)
                                             <span class="badge me-1 bg-success">Min: {{$article->over_min}}</span>
                                         @else
                                             <span class="badge me-1 bg-danger">Min: {{$article->over_min}}</span>
@@ -166,18 +175,19 @@
                                         </svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Bearbeiten</a>
+                                        <a class="dropdown-item" href="{{ route('article', $article->id) }}">Bearbeiten</a>
                                         <a class="dropdown-item" href="#">Bestand ändern</a>
                                     </div>
                                 </td>
                             </tr>
                             @endforeach
+
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
+        <a class="btn btn-primary mb-2 py-0" type="button" href="{{ route('stock') }}">Bestände korrigieren</a>
     </div>
 </div>
 

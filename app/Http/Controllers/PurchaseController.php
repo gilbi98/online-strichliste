@@ -4,13 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Purchase;
 use App\Position;
+use App\Invoice;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use Carbon\Carbon;
 /** use Illuminate\Support\Facades\Cookie; */
 
 class PurchaseController extends Controller
 {
+    public $purchase;
+    public $invoice;
+
+    public function __construct()
+    {
+        $this->purchase = new Purchase;
+        $this->invoice = new Invoice;
+    }
+
+    public function index()
+    { 
+
+        $currentDate = Carbon::now()->toDateTimeString();
+
+        return view('admin.purchases', ['purchases' => $this->purchase->getPurchasesByArticles(), 'last_invoiceInterval' => $this->invoice->getLastInvoiceInterval(), 'last_invoiceDate' => $this->invoice->getLastInvoiceDate(), 'currentDate' => $currentDate]);
+        //return $this->purchase->getPurchasesByArticles();
+        //return DB::table('purchases')->leftJoin('articles', 'purchases.article', 'articles.id')->select('purchases.article AS article_id', 'articles.name AS article_name')->groupBy('purchases.article')->get()->toArray();
+    }
     /**
      * 1. create type of purchase through calling different methods
      * 2. store purchase
@@ -28,7 +48,16 @@ class PurchaseController extends Controller
         $article = $request->input('article');
         $quantity = $request->input('quantity');
 
-        $purchase = $this->store($user, $article, $quantity);
+        $price = DB::table('articles')->where('id', '=', $article)->value('price');
+        $cost = $price * $quantity;
+
+        $purchase = new Purchase;
+        $purchase->date = Carbon::now()->toDateTimeString();
+        $purchase->user = $user;
+        $purchase->article = $request->input('article');
+        $purchase->quantity = $request->input('quantity');
+        $purchase->cost = $cost;
+        $purchase->save();
 
         return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
     }
@@ -46,7 +75,16 @@ class PurchaseController extends Controller
         $article = $request->input('article');
         $quantity = $request->input('quantity');
 
-        $purchase = $this->store($user, $article, $quantity);
+        $price = DB::table('articles')->where('id', '=', $article)->value('price');
+        $cost = $price * $quantity;
+
+        $purchase = new Purchase;
+        $purchase->date = Carbon::now()->toDateTimeString();
+        $purchase->user = $user;
+        $purchase->article = $article;
+        $purchase->quantity = $quantity;
+        $purchase->cost = $cost;
+        $purchase->save();
 
         return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
     }

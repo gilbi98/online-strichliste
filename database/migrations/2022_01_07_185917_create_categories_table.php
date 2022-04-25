@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('tallysheet')->unsigned()->nullable();
+            $table->unsignedBigInteger('tallysheet')->nullable();
             $table->foreign('tallysheet')->references('id')->on('tallysheets')->onDelete('cascade');
         });
     }

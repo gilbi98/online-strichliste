@@ -20,11 +20,11 @@ class CreateInvoicesTable extends Migration
             $table->foreign('created_from')->references('id')->on('users')->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
-            $table->integer('bills_total');
-            $table->integer('bills_open');
-            $table->double('amount_total');
-            $table->double('amount_open');
-            $table->integer('positions');
+            $table->integer('bills_total')->nullable();
+            $table->integer('bills_open')->nullable();
+            $table->double('amount_total')->nullable();
+            $table->double('amount_open')->nullable();
+            $table->integer('positions')->nullable();
         });
     }
 

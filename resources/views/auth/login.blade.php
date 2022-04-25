@@ -29,7 +29,7 @@
                 </button>
 
                 <!-- only used for development and testing system -->
-                <p class="mt-3 mb-3 text-muted">Strichliste</p><p class="mt-1 text-muted bg-warning text-danger">ENTWICKLUNGSSYSTEM</p>
+                <p class="mt-3 mb-3 text-muted">Strichliste</p><p class="mt-1 text-muted bg-warning text-danger" style="color: red !important; background-color: gold !important">ENTWICKLUNGSSYSTEM</p>
             </form>
 
         </div>

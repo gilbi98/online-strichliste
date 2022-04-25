@@ -16,11 +16,14 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->date('date');
             $table->bigInteger('user')->unsigned()->nullable();
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('article')->unsigned()->nullable();
             $table->foreign('article')->references('id')->on('articles')->onDelete('cascade');
             $table->integer('quantity');
+            $table->double('cost');
+
         });
     }
 

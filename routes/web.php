@@ -37,11 +37,29 @@ Route::middleware('role:admin')->group(function () {
     
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
-    Route::get('/articles', 'ArticleController@index')->name('articles');
+    Route::get('/articles', 'ArticleController@indexArticles')->name('articles');
 
-    Route::post('/create-article', 'ArticleController@create')->name('createArticle');
+    Route::get('/article/{id}', 'ArticleController@indexArticle')->name('article');
+
+    Route::post('/new-article', 'ArticleController@create')->name('createArticle');
 
     Route::post('/refill-article', 'ArticleController@refill')->name('refillArticle');
+
+    Route::post('/update-article-data/{id}', 'ArticleController@updateArticleData')->name('changeArticleData');
+
+    Route::post('/update-article-stockdata/{id}', 'ArticleController@updateArticleStockData')->name('changeArticleStockData');
+
+    Route::get('/stock', 'ArticleController@indexStock')->name('stock');
+
+    Route::post('/update-articles-stockdata', 'ArticleController@updateArticlesStock')->name('changeArticlesStock');
+
+    Route::post('/new-category', 'CategoryController@create')->name('createCategory');
+
+    Route::get('/categories', 'CategoryController@indexCategories')->name('categories');
+
+    Route::get('/purchases', 'PurchaseController@index')->name('purchases');
+
+    Route::post('/new-invoice', 'InvoiceController@create')->name('createInvoice');
 
 });
 

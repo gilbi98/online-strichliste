@@ -43,7 +43,7 @@ class Bill extends Model
        
     public function getUsersPurchasesPaginate($user, $paginate)
     {
-        return Purchase::select('purchases.created_at AS date','purchases.quantity AS quantity','articles.name','articles.price',)->join('articles', 'purchases.article', '=', 'articles.id')->where('user', Auth::user()->id)->paginate($paginate);
+        return Purchase::select('purchases.created_at AS date','purchases.quantity AS quantity','articles.name','articles.price',)->join('articles', 'purchases.article', '=', 'articles.id')->where('user', Auth::user()->id)->orderBy('purchases.id', 'desc')->paginate($paginate);
     }
         
     public function getUsersBillsPaginate($user, $paginate)
@@ -90,6 +90,41 @@ class Bill extends Model
     public function getBillPositions($bill)
     {
         return BillPosition::select('bill_positions.id','bill_positions.article','bill_positions.quantity','bill_positions.amount','articles.name','articles.price',)->join('articles', 'bill_positions.article', '=', 'articles.id')->where('bill', $bill)->get();
+    }
+
+    public function getUsersForBills($start, $end)
+    {
+        return DB::table('purchases')->where('date', '>=', $start)->where('date', '<=', $end)->groupBy('user')->pluck('user')->toArray();
+    }
+
+    public function getBillData($users, $start, $end)
+    {
+        $billData = array();
+
+        for($i=0; $i<count($users); $i++){
+            $billData[$i] = array();
+            $billData[$i]['user'] = $users[$i];
+            $billData[$i]['amount'] = DB::table('purchases')->where('user', '=', $users[$i])->where('date', '>=', $start)->where('date', '<=', $end)->groupBy('user')->sum('cost');
+        }
+
+        return $billData;
+    }
+
+    public function createBills($billData)
+    {
+        for($i=0; $i<count($billData); $i++){
+
+            $bill = new Bill;
+            $bill->number = 1;
+            $bill->term = '2022-1-1';
+            $bill->user = $billData[$i]['user'];
+            $bill->amount = $billData[$i]['amount'];
+            $bill->total = $billData[$i]['amount'];
+            $bill->invoice = DB::table('invoices')->orderBy('id', 'desc')->value('id');
+            $bill->open = 1;
+            $bill->save();
+
+        }
     }
        
 }
