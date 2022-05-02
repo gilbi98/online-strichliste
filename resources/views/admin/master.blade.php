@@ -79,7 +79,7 @@
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
             </svg> Entnahmen</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="typography.html">
+        <li class="nav-item"><a class="nav-link" href="{{ route('invoices') }}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
             </svg> Abrechnungen</a>
@@ -135,10 +135,8 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
                   </svg> User-Bereich</a>
 
-                  <a class="dropdown-item">
-                    <svg class="icon me-2">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
-                    </svg> Logout</a>
+                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"><i class="bi bi-box-arrow-right"></i> Logout</a>    
+                        <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
               </div>
             </li>
           </ul>

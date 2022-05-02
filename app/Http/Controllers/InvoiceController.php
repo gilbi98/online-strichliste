@@ -20,9 +20,14 @@ class InvoiceController extends Controller
         $this->position = new Position;
     }
     
-    public function index()
+    public function indexInvoices()
     {
-        //
+        return view('admin.invoices', ['open_invoices' => $this->invoice->getOpenInvoices(), 'closed_invoices' => $this->invoice->getClosedInvoices()]);
+    }
+
+    public function indexInvoice($id)
+    {
+        return view('admin.invoice', ['open_bills' => $this->invoice->getOpenBills($id), 'closed_bills' => $this->invoice->getClosedBills($id)]);
     }
 
     public function getLastInvoiceInterval()
@@ -61,6 +66,7 @@ class InvoiceController extends Controller
         }
         $amount_open = $amount_total;
 
+        //get ID of created invoice
         $invoiceId = DB::table('invoices')->orderBy('id', 'desc')->value('id');
 
         DB::table('invoices')->where('id', '=', $invoiceId)->update(['bills_total' => $bills_total, 'bills_open' => $bills_open, 'amount_total' => $amount_total,  'amount_open' => $amount_open]);
@@ -68,9 +74,8 @@ class InvoiceController extends Controller
         //create positions for bills
         $users = $this->bill->getUsersForBills($start, $end);
 
-        if($this->position->createPositions($users) == 1){
-            //delete purchases
-        }
+        $this->position->createPositions($users);
+        
 
         return redirect()->route('purchases')->with('message', 'Die Entnahmen wurden abgerechnet');
     }

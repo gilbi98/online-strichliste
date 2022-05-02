@@ -25,6 +25,7 @@ class CreateInvoicesTable extends Migration
             $table->double('amount_total')->nullable();
             $table->double('amount_open')->nullable();
             $table->integer('positions')->nullable();
+            $table->integer('open')->default(1);
         });
     }
 

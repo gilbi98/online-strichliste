@@ -79,7 +79,7 @@
             <div class="card h-100 py-1">
                 <div class="card-body">
     
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Letzte Entnahmen</div>
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahmen seit letzter Abrechnung am {{date('d.m.Y', strtotime($last_invoice))}}</div>
         
                     @if($purchases->count() > 0)
                         <table class="table">

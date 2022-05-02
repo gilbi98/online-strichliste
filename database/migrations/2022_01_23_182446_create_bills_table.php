@@ -25,6 +25,8 @@ class CreateBillsTable extends Migration
             $table->bigInteger('invoice')->unsigned()->nullable();
             $table->foreign('invoice')->references('id')->on('invoices')->onDelete('cascade');
             $table->integer('open')->default(1);
+            $table->integer('payment_methode')->nullable();
+            $table->date('payment_date')->nullable();
         });
     }
 

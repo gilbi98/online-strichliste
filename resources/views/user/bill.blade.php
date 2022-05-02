@@ -97,9 +97,9 @@
 
                             @foreach($positions as $position)
                             <tr>
-                                <td>{{$position->name}}</td>
+                                <td>{{$position->article}}</td>
                                 <td>{{$position->quantity}}</td>                
-                                <td>{{number_format($position->price,2)}}&#8364;</td>
+                                <td>{{number_format(($position->amount/$position->quantity),2)}}&#8364;</td>
                                 <td>{{number_format($position->amount,2)}}&#8364;</td>
                             </tr>
                             @endforeach

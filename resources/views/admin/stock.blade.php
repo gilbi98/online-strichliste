@@ -21,6 +21,9 @@
         @endforeach
     @endif
 
+        @if($articles->count() == 0)
+            Keine Artikel mit Bestandstracking im System vorhanden
+        @endif
     
             <!-- Wenn Kategorien existieren, Akkordion. Wenn keine Kategorien, kein Akkordion, nur Tabelle -->
             @if($categories->count() > 0)

@@ -53,22 +53,7 @@ class ArticleController extends Controller
             'category' => 'required',
         ]);
 
-        $article = new Article;
-        $article->name = $request->input('name');
-        $article->price = $request->input('price');
-        $article->category = $request->input('category');
-
-        if($request->input('stockTracking') == null){
-            $article->stock_tracking = 0;
-        }
-        else{
-            $article->stock_tracking = $request->input('stockTracking');
-        }
-
-        $article->in_stock = $request->input('in_stock');
-        $article->min_stock = $request->input('min_stock');
-        $article->over_min = $request->input('in_stock') - $request->input('min_stock');
-        $article->save();
+       $this->article->storeArticle($request);
 
         //return $request->input('category');
         return redirect()->route('articles')->with('message', 'Der Artikel wurde gespeichert');
@@ -111,7 +96,7 @@ class ArticleController extends Controller
     {
         $this->article->updateArticlesStock($request);
 
-        return redirect()->back()->with('message', 'Die Bestandsdaten wurden erfolgreich eingetragen');
+        return redirect()->route('stock')->with('message', 'Die Bestandsänderungen wurden erfolgreich eingetragen');
         
     }
     

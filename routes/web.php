@@ -26,9 +26,9 @@ Route::middleware('role:user')->group(function () {
 
     Route::post('/new-purchase-with-category', 'PurchaseController@createPurchaseWithCategory')->name('createPurchaseWithCategory');
 
-    Route::get('/bills', 'BillController@bills_index')->name('bills');
+    Route::get('/bills', 'BillController@indexBillsUser')->name('bills');
 
-    Route::get('/bill/{id}', 'BillController@bill_index')->name('bill');
+    Route::get('/bill/{id}', 'BillController@indexBillUser')->name('bill');
 });
 
 //Admin routes
@@ -60,6 +60,12 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/purchases', 'PurchaseController@index')->name('purchases');
 
     Route::post('/new-invoice', 'InvoiceController@create')->name('createInvoice');
+
+    Route::get('/invoices', 'InvoiceController@indexInvoices')->name('invoices');
+
+    Route::get('/invoice/{id}', 'InvoiceController@indexInvoice')->name('invoice');
+
+    Route::get('/billAdmin/{id}', 'BillController@indexBillAdmin')->name('billAdmin');
 
 });
 

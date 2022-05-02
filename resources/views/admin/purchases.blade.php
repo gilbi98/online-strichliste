@@ -32,6 +32,7 @@
             <div class="card-body">
                 <div class="row">
                     <table class="table border mb-0">
+                        @if(count($purchases) > 0)
                         <thead class="table-light fw-semibold">
                             <tr class="align-middle">
                                 <th>Artikel</th>
@@ -39,6 +40,9 @@
                                 <th>Umsatz</th>
                             </tr>
                         </thead>
+                        @else
+                            Keine Entnahmen seit letzter Abrechnung
+                        @endif
                         <tbody>
                         @foreach($purchases as $purchase)
                             <tr class="align-middle">

@@ -87,10 +87,10 @@ class Article extends Model
         $newInStocks = $request->except('_token');
 
         if(DB::table('categories')->get('id')->count() > 0){
-            $articles = DB::table('articles')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 1)->pluck('id')->where('articles.category', '!=', null)->toarray();
+            $articles = DB::table('articles')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 1)->where('articles.category', '!=', null)->pluck('id')->toarray();
         }
         else{
-            $articles = DB::table('articles')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 1)->pluck('id')->where('articles.category', '=', null)->toarray();
+            $articles = DB::table('articles')->where('articles.status', '=', 1)->where('articles.stock_tracking', '=', 1)->where('articles.category', '=', null)->pluck('id')->toarray();
         }
         
         for($i=0; $i<count($articles); $i++){
@@ -101,6 +101,27 @@ class Article extends Model
 
         }
         
+    }
+
+    public function storeArticle($request)
+    {
+        $article = new Article;
+        $article->name = $request->input('name');
+        $article->price = $request->input('price');
+        $article->category = $request->input('category');
+
+        if($request->input('stockTracking') == null){
+            $article->stock_tracking = 0;
+        }
+        else{
+            $article->stock_tracking = 1;
+        }
+
+        $article->in_stock = $request->input('in_stock');
+        $article->min_stock = $request->input('min_stock');
+        $article->over_min = $request->input('in_stock') - $request->input('min_stock');
+        $article->save();
+
     }
     
        

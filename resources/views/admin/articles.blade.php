@@ -123,6 +123,9 @@
             <div class="card-body">
                 <div class="row">
                     <table class="table border mb-0">
+                        @if($articles->count() == 0)
+                            Keine Artikel im System hinterlegt
+                        @else
                         <thead class="table-light fw-semibold">
                             <tr class="align-middle">
                                 <th>#</th>
@@ -132,6 +135,7 @@
                                 <th></th>
                             </tr>
                         </thead>
+                        @endif
                         <tbody>
                             @foreach($articles as $article)
                             <tr class="align-middle">

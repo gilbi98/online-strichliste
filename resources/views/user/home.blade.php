@@ -12,13 +12,14 @@
         </div>
     </div>
 
+    @if(count($positions) > 0)
     <div class="row justify-content-center">
     	<div class="col-xl-8 mb-2 ml-0 mt-2">
-        @if($positions->count() > 0)
+        
             <div class="card h-100 py-1">
                 <div class="card-body">
     
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Deine Entnahmen</div>
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Deine Entnahmen seit letzter Abrechnung am {{date('d.m.Y', strtotime($last_invoice))}}</div>
     
                         <table class="table">
                             <tr class="font-weight-bold">
@@ -30,10 +31,10 @@
 
                             @foreach($positions as $position)
                                 <tr>
-                                    <td>{{$position->name}}</td>
-                                    <td>{{$position->quantity}}</td>                
-                                    <td>{{number_format($position->price,2)}}&#8364;</td>
-                                    <td>{{number_format($position->amount,2)}}&#8364;</td>
+                                    <td>{{$position['name']}}</td>
+                                    <td>{{$position['quantity']}}</td>                
+                                    <td>{{number_format($position['price'],2)}}&#8364;</td>
+                                    <td>{{number_format($position['amount'],2)}}&#8364;</td>
                                 </tr>
                             @endforeach
                         </table>
@@ -42,8 +43,9 @@
 
                 </div>
             </div>
-        @endif
+        
         </div>
     </div>
+    @endif
 </div>
 @endsection

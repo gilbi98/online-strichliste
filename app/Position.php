@@ -13,6 +13,8 @@ class Position extends Model
 
     public $timestamps = false;
 
+    //a position sums up how often one article got by an user, thus for each gotten article there is one position
+
     public function getUsersPositions($user)
     {
         return Position::select(
@@ -30,18 +32,21 @@ class Position extends Model
 
     public function getUsersOpenArticles($user)
     {
-        return DB::table('purchases')->where('user', '=', $user)->groupBy('article')->get('article')->toArray();
+        // returns all articles got by an user since last invoice
+        return DB::table('purchases')->where('user', '=', $user)->groupBy('article')->pluck('article')->toArray();
     }
 
     public function getUsersOpenPositions($user, $articles)
     {
+        // determines all positions based on the open articles
         $positions = array();
 
         for($i=0; $i<count($articles); $i++){
-            $position[$i] = array();
-            $position[$i]['article'] = $articles[$i];
-            $position[$i]['quantity'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->sum('quantity');
-            $position[$i]['amount'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->sum('amount');
+            $positions[$i] = array();
+            $positions[$i]['name'] = DB::table('articles')->where('id', $articles[$i])->value('name');
+            $positions[$i]['quantity'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->sum('quantity');
+            $positions[$i]['price'] = (int)DB::table('articles')->where('id', '=', $articles[$i])->value('price');
+            $positions[$i]['amount'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->sum('cost');
         }
 
         return $positions;
