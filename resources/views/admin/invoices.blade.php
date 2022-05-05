@@ -27,7 +27,6 @@
         @endforeach
     @endif
     
-    @if($open_invoices->count() > 0)
     <!-- open invoices -->
     <div class="row">
         <div class="container-lg">
@@ -35,6 +34,7 @@
                 <div class="card-header">Offene Abrechnungen</div>
                     <div class="card-body">
                         <div class="row">
+                        @if($open_invoices->count() > 0)
                         <table class="table border mb-0">
                         <thead class="table-light fw-semibold">
                             <tr class="align-middle">
@@ -77,7 +77,7 @@
                                 
                                 <td>
                                     <div>
-                                        {{$invoice->bills_open}}
+                                        {{$invoice->bills_open}} <i class="fa-thin fa-angle-right"></i>
                                     </div>
                                 </td>
                                 
@@ -98,12 +98,15 @@
 
                                 <td>
                                     <div>
-                                    <a href="{{ route('invoice', $invoice->id)}}">einsehen</a>
+                                        <a class="btn btn-primary" href="{{ route('invoice', $invoice->id)}}" type="button">einsehen</a>
                                     </div>
                                 </td>
                                   
                             </tr>
                             @endforeach
+                        @else
+                            Keine offenen Abrechnungen vorhanden
+                        @endif
                         </tbody>
                     </table>
                         </div>
@@ -112,7 +115,6 @@
             </div>
         </div>
     </div>
-    @endif
     @if($closed_invoices->count() > 0)
    <!-- closed invoices -->
     <div class="container-lg">
@@ -184,7 +186,7 @@
 
                                 <td>
                                     
-                                    <a href="{{ route('invoice', $invoice->id)}}">einsehen</a>
+                                    <a class="btn btn-primary" href="{{ route('invoice', $invoice->id)}}" type="button">einsehen</a>
                                     
                                 </td>
                                   

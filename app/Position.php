@@ -70,6 +70,8 @@ class Position extends Model
                 $position->amount = (double)DB::table('purchases')->where('article', '=', $article)->sum('cost');
                 $position->save();
                 
+                //delete purchase
+                DB::table('purchases')->where('article', '=', $article)->where('user', $users[$i])->delete();
             }
 
         }

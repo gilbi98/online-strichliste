@@ -172,16 +172,8 @@
                                         -
                                     @endif
                                 </td>
-                                <td>
-                                    <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <svg class="icon">
-                                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-options"></use>
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="{{ route('article', $article->id) }}">Bearbeiten</a>
-                                        <a class="dropdown-item" href="#">Bestand ändern</a>
-                                    </div>
+                                <td>                               
+                                    <a class="btn btn-primary" href="{{ route('article', $article->id) }}" type="button">einsehen</a>
                                 </td>
                             </tr>
                             @endforeach

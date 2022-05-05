@@ -59,8 +59,6 @@ class Article extends Model
     public function setInStock($article, $quantity)
     {
         DB::table('articles')->where(['id' => $article])->update(['in_stock' => $quantity]);
-
-        return 1;
     }
 
     public function updateArticleData($article, $name, $price, $category, $status)

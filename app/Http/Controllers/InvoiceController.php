@@ -75,7 +75,6 @@ class InvoiceController extends Controller
         $users = $this->bill->getUsersForBills($start, $end);
 
         $this->position->createPositions($users);
-        
 
         return redirect()->route('purchases')->with('message', 'Die Entnahmen wurden abgerechnet');
     }

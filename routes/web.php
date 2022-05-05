@@ -29,6 +29,10 @@ Route::middleware('role:user')->group(function () {
     Route::get('/bills', 'BillController@indexBillsUser')->name('bills');
 
     Route::get('/bill/{id}', 'BillController@indexBillUser')->name('bill');
+
+    Route::get('/profil', 'UserController@profil')->name('profil');    
+
+    Route::post('/generate-pin', 'UserController@generatePin')->name('generatePin');
 });
 
 //Admin routes
@@ -66,6 +70,8 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/invoice/{id}', 'InvoiceController@indexInvoice')->name('invoice');
 
     Route::get('/billAdmin/{id}', 'BillController@indexBillAdmin')->name('billAdmin');
+
+    Route::post('/billToPaid/{id}', 'BillController@setBillToPaid')->name('billToPaid');
 
 });
 

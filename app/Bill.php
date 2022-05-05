@@ -106,9 +106,13 @@ class Bill extends Model
         $billData = array();
 
         for($i=0; $i<count($users); $i++){
+            //add position to array
             $billData[$i] = array();
             $billData[$i]['user'] = $users[$i];
             $billData[$i]['amount'] = DB::table('purchases')->where('user', '=', $users[$i])->where('date', '>=', $start)->where('date', '<=', $end)->groupBy('user')->sum('cost');
+
+            //delete position from database
+            
         }
 
         return $billData;
@@ -135,16 +139,24 @@ class Bill extends Model
 
     public function generateBillNumber($id, $user)
     {
-        
         $year = Carbon::now()->year;
 
         return 'R-'. $year . '-' . $user. '-' . $id;
-  
     }
 
     public function getBillAdmin($id)
     {
-        return Bill::select('bills.*', 'bills.id AS id', 'users.firstname', 'users.lastname')->join('users', 'bills.user', '=', 'users.id')->where('invoice', '=', $id)->where('open', '=', 1)->first();
+        return Bill::select('bills.*', 'bills.id AS id', 'users.firstname', 'users.lastname')->join('users', 'bills.user', '=', 'users.id')->where('invoice', '=', $id)->first();
+    }
+
+    public function setBillPayment($id, $status)
+    {
+        DB::table('bills')->where('id', '=', $id)->update(['open' => $status]);
+    }
+
+    public function setBillToPaid($id)
+    {
+        DB::table('bills')->where('id', '=', $id)->update(['open' => 0]);
     }
        
 }

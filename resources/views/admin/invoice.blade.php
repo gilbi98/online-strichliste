@@ -29,12 +29,12 @@
     
     <!-- open bills -->
     <div class="row">
-        @if($open_bills->count() > 0)
         <div class="container-lg">
             <div class="card mb-4">
                 <div class="card-header">Offene Rechnungen</div>
                     <div class="card-body">
                         <div class="row">
+                        @if($open_bills->count() > 0)
                         <table class="table border mb-0">
                         <thead class="table-light fw-semibold">
                             <tr class="align-middle">
@@ -67,12 +67,22 @@
                                 
                                 <td>
                                     <div>
-                                        <a href="{{ route('billAdmin', $bill->id)}}">einsehen</a>
+                            
+                                        <form method="post" action="{{route('billToPaid', $bill->id)}}">
+                                            @csrf
+                                            <button class="btn btn-primary" type="submit">Bezahlt</button>
+                                        </form>
+
+                                        <a class="btn btn-primary" href="{{route('billAdmin', $bill->id)}}" type="button">einsehen</a>
                                     </div>
+                                   
                                 </td>
                                 
                             </tr>
                             @endforeach
+                        @else
+                            Keine offenen Rechnungen vorhanden
+                        @endif
                         </tbody>
                     </table>
                         </div>
@@ -81,7 +91,6 @@
             </div>
         </div>
     </div>
-    @endif
     @if($closed_bills->count() > 0)
     <div class="container-lg">
             <div class="card mb-4">
@@ -120,7 +129,7 @@
                                 
                                 <td>
                                     <div>
-                                        <a href="{{ route('billAdmin', $bill->id)}}">einsehen</a>
+                                        <a class="btn btn-primary" href="{{route('billAdmin', $bill->id)}}" type="button">einsehen</a>
                                     </div>
                                 </td>
                                 

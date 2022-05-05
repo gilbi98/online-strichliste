@@ -37,9 +37,13 @@ class RegisterController extends Controller
      *
      * @return void
      */
+
+    public $user;
+
     public function __construct()
     {
         $this->middleware('guest');
+        $this->user = new User;
     }
 
     /**
@@ -73,27 +77,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    private function createSystemPin(){
-
-        $code = random_int(1000, 999999);
-
-        if($this->checkIfSystemCodeExists($code) == true){
-            $this->createSystemPin();
-        }
-        else{
-            return $code;
-        }
-    }
-
-    private function checkIfSystemCodeExists($code)
-    {
-        if(DB::table('users')->where('sc', $code)->exists()){
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 }

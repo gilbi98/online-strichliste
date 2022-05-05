@@ -4,7 +4,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb my-0 ms-2">
         <li class="breadcrumb-item">
-            <span>Rechnung</span>
+            <span>{{$bill->number}} {{$bill->firstname}} {{$bill->lastname}}</span>
         </li>
     </ol>
 </nav>
@@ -37,8 +37,8 @@
                         <table class="table border mb-0">
                             
                             <tr class="align-middle">
-                                <th>Rechnungsnummer</th>
-                                <td>{{$bill->number}}</td>
+                                <th>Aussteller</th>
+                                <td>-</td>
 
                                 <th>Status</th>
                                 <td>
