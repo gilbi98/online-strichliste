@@ -31,7 +31,7 @@ class Invoice extends Model
 
     public function getLastInvoiceDate()
     {
-        if(DB::table('invoices')->count() == 0){
+        if(DB::table('invoices')->count('id') == 0){
             return null;
         }
 

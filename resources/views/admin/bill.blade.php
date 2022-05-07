@@ -66,10 +66,7 @@
                                 <td>-</td>
                             </tr>
 
-                            
-                        
-                       
-                    </table>
+                        </table>
                         </div>
                     </div>
                 </div>
@@ -78,10 +75,10 @@
     </div>
     
     <div class="container-lg">
-            <div class="card mb-4">
-                <div class="card-header">Positionen</div>
-                    <div class="card-body">
-                        <div class="row">
+        <div class="card mb-4">
+            <div class="card-header">Positionen</div>
+                <div class="card-body">
+                    <div class="row">
                         <table class="table border mb-0">
                         <thead class="table-light fw-semibold">
                             <tr class="align-middle">
@@ -104,10 +101,9 @@
                     </div>
                 </div>
             </div>
+            
+            <a class="btn btn-primary m-3" href="{{ route('downloadBill', Auth::user()->id)}}" type="button">download</a>
+
         </div>
     </div>
-
-
-</div>
-
 @endsection

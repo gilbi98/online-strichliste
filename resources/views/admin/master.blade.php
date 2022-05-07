@@ -60,7 +60,7 @@
         <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> Dashboard</a>
+            </svg> Übersicht</a>
         </li>
         <li class="nav-title">Bestandsmanagement</li>
         <li class="nav-item"><a class="nav-link" href="{{ route('articles') }}">
@@ -106,9 +106,9 @@
               <use xlink:href="assets/brand/coreui.svg#full"></use>
             </svg></a>
           <ul class="header-nav d-none d-md-flex">
-            <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Bestände</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Abrechnungen</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('articles') }}">Bestände</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('invoices') }}">Abrechnungen</a></li>
           </ul>
           <ul class="header-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="#">

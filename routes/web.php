@@ -73,5 +73,7 @@ Route::middleware('role:admin')->group(function () {
 
     Route::post('/billToPaid/{id}', 'BillController@setBillToPaid')->name('billToPaid');
 
+    Route::get('download-pdf/{id}', 'BillController@downloadBill')->name('downloadBill');
+
 });
 

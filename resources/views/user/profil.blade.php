@@ -17,7 +17,7 @@
     
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Deine E-Mail</div>
     
-                       
+                    <i class="bi bi-pencil"></i><i class="bi bi-arrow-bar-right"></i>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <div class="card-body">
     
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Dein Passwort</div>
-    
+                    
                        
                     </div>
                 </div>

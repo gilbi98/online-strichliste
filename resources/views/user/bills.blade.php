@@ -130,7 +130,7 @@
                                     @if($bill->open == 0)
                                         <span class="badge badge-pill badge-success">beglichen</span>
                                     @else 
-                                        <span class="badge badge-pill badge-secondary">beglichen</span>
+                                        <span class="badge badge-pill badge-secondary">nicht beglichen</span>
                                     @endif
                                 </td>
                             </tr>

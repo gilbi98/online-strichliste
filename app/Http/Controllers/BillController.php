@@ -10,6 +10,7 @@ use App\Invoice;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use PDF;
 
 class BillController extends Controller
 {
@@ -49,4 +50,13 @@ class BillController extends Controller
         return redirect()->back();
     }
     
+    public function downloadBill($id)
+    {
+        $pdf = PDF::loadView('/admin/billPdf');
+
+        $rechnungsnr = 1234;
+  
+        return $pdf->download($rechnungsnr.'.pdf');
+
+    }
 }

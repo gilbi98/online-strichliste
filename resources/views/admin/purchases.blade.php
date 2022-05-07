@@ -87,7 +87,11 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary" role="alert">
-                Letzte Abrechnung: {{$last_invoiceInterval}} <br>
+                @if($last_invoiceInterval != null)
+                    Letzte Abrechnung: {{$last_invoiceInterval}}
+                @else
+                Letzte Abrechnung: -
+                @endif<br>
                 Empfohlene Abrechnung: {{date('d.m.Y', strtotime($last_invoiceDate))}} - {{date('d.m.Y', strtotime($currentDate))}}
                 </div>
                 <form method="post" action="{{ route('createInvoice') }}">

@@ -25,7 +25,7 @@
                                                 @csrf
                                                 <!-- if no categories exist only one dropdown is necessary -->
                                                 <div class="form-group">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Entnahme eintragen</div>
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-2"> Entnahme eintragen</div>
                                                     
                                                     <select class="form-control" id="category" name="category">
                                                         <option value="null">Kategorie wählen</option>
