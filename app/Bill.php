@@ -15,6 +15,14 @@ class Bill extends Model
         'id', 'created_at', 'updated_at', 'number', 'term', 'user', 'amount', 'total', 'invoice'
     ];
 
+    public $invoice;
+
+    public function __construct()
+    {
+        $this->invoice = new Invoice;
+    }
+
+
     //bills overview methods
     public function getUsersPositionsAmount($user)
     {
@@ -149,14 +157,12 @@ class Bill extends Model
         return Bill::select('bills.*', 'bills.id AS id', 'users.firstname', 'users.lastname')->join('users', 'bills.user', '=', 'users.id')->where('invoice', '=', $id)->first();
     }
 
-    public function setBillPayment($id, $status)
-    {
-        DB::table('bills')->where('id', '=', $id)->update(['open' => $status]);
-    }
-
     public function setBillToPaid($id)
     {
         DB::table('bills')->where('id', '=', $id)->update(['open' => 0]);
+
+        $this->invoice->updateInvoice($id);
+
     }
        
 }

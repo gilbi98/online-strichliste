@@ -10,9 +10,9 @@ use DB;
 class CategoryArticle extends Component
 {
     public $articles = null;
+    public $category = null;
 
     public $selectedCategory = null;
-    public $selectedArticle = null;
 
     public function render()
     {
@@ -25,4 +25,5 @@ class CategoryArticle extends Component
             $this->articles = DB::table('articles')->where('category', $category)->get();
         }
     }
+
 }

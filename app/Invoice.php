@@ -69,4 +69,33 @@ class Invoice extends Model
     {
         return Bill::select('bills.*', 'users.firstname', 'users.lastname')->join('users', 'bills.user', '=', 'users.id')->where('invoice', '=', $id)->where('open', '=', 0)->get();
     }
+
+    public function checkForInvoiceClosure($id)
+    {
+        if(DB::table('invoices')->where('id', $id)->value('bills_open') == 0){
+            return true;
+        }
+        else return false;
+    }
+
+    public function updateInvoice($id)
+    {
+        $amountBill = DB::table('bills')->where('id', $id)->value('amount');
+
+        $invoice = DB::table('bills')->where('id', $id)->value('invoice');
+
+        $openBillsOld = DB::table('invoices')->where('id', $invoice)->value('bills_open');
+        $openBillsNew = $openBillsOld - 1;
+
+        $openAmountOld = DB::table('invoices')->where('id', $invoice)->value('amount_open');
+        $openAmountNew = $openAmountOld - $amountBill;
+
+        if($openBillsOld == 1){
+            $updateInvoice = DB::table('invoices')->where('id', $invoice)->update(['bills_open' => $openBillsNew, 'amount_open' => $openAmountNew, 'open' => 0]);
+        }
+        if($openBillsOld > 1){
+            $updateInvoice = DB::table('invoices')->where('id', $invoice)->update(['bills_open' => $openBillsNew, 'amount_open' => $openAmountNew]);
+        }
+
+    }
 }

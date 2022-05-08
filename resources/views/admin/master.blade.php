@@ -106,7 +106,7 @@
               <use xlink:href="assets/brand/coreui.svg#full"></use>
             </svg></a>
           <ul class="header-nav d-none d-md-flex">
-            <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Übersicht</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('articles') }}">Bestände</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('invoices') }}">Abrechnungen</a></li>
           </ul>
