@@ -53,7 +53,7 @@
                             <tr class="align-middle">
                                 <td>
                                     <div>
-                                        {{date('d.m.Y', strtotime($invoice->start_date))}} -  {{date('d.m.Y', strtotime($invoice->start_date))}}
+                                        {{date('d.m.Y', strtotime($invoice->start_date))}} -  {{date('d.m.Y', strtotime($invoice->end_date))}}
                                     </div>
                                 </td>
                                 <!--
@@ -141,7 +141,7 @@
                             <tr class="align-middle">
                                 <td>
                                     <div>
-                                        {{date('d.m.Y', strtotime($invoice->start_date))}} -  {{date('d.m.Y', strtotime($invoice->start_date))}}
+                                        {{date('d.m.Y', strtotime($invoice->start_date))}} - {{date('d.m.Y', strtotime($invoice->end_date))}}
                                     </div>
                                 </td>
                                 <!--

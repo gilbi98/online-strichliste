@@ -48,13 +48,19 @@ class InvoiceController extends Controller
         $end = $request->input('end');
 
         //create invoice only with start and end date
-        $this->invoice->createNewInvoice($start, $end);
+        $this->invoice->createInvoice($start, $end);
+
+        //get ID of created invoice
+        $invoiceId = DB::table('invoices')->orderBy('id', 'desc')->value('id');
+
+        //get array with users with open purchases
+        $users = $this->bill->getUsersForBills($start, $end);
 
         //get array with users bill data
-        $billData = $this->bill->getBillData($this->bill->getUsersForBills($start, $end), $start, $end);
+        $billData = $this->bill->getBillData($users, $start, $end);
         
         //create bills
-        $this->bill->createBills($billData);
+        $this->bill->createBills($billData, $invoiceId);
 
         //update bill based invoice data
         $bills_total = count($billData);
@@ -66,14 +72,9 @@ class InvoiceController extends Controller
         }
         $amount_open = $amount_total;
 
-        //get ID of created invoice
-        $invoiceId = DB::table('invoices')->orderBy('id', 'desc')->value('id');
-
         DB::table('invoices')->where('id', '=', $invoiceId)->update(['bills_total' => $bills_total, 'bills_open' => $bills_open, 'amount_total' => $amount_total,  'amount_open' => $amount_open]);
 
-        //create positions for bills
-        $users = $this->bill->getUsersForBills($start, $end);
-
+        //create bill positions
         $this->position->createPositions($users);
 
         return redirect()->route('purchases')->with('message', 'Die Entnahmen wurden abgerechnet');

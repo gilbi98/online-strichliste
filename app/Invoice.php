@@ -51,7 +51,7 @@ class Invoice extends Model
         return DB::table('invoices')->where('open', '=', 0)->orderBy('id', 'desc')->get();
     }
 
-    public function createNewInvoice($start, $end)
+    public function createInvoice($start, $end)
     {
         $invoice = new Invoice;
         $invoice->start_date = $start;

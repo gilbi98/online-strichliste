@@ -4,7 +4,6 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb my-0 ms-2">
         <li class="breadcrumb-item">
-            <span>{{$bill->number}} {{$bill->firstname}} {{$bill->lastname}}</span>
         </li>
     </ol>
 </nav>

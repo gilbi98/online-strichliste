@@ -103,22 +103,23 @@ class Article extends Model
 
     public function storeArticle($request)
     {
-        $article = new Article;
-        $article->name = $request->input('name');
-        $article->price = $request->input('price');
-        $article->category = $request->input('category');
-
+        $stock_tracking = null;
         if($request->input('stockTracking') == null){
-            $article->stock_tracking = 0;
+            $stock_tracking = 0;
         }
         else{
-            $article->stock_tracking = 1;
+            $stock_tracking = 1;
         }
 
-        $article->in_stock = $request->input('in_stock');
-        $article->min_stock = $request->input('min_stock');
-        $article->over_min = $request->input('in_stock') - $request->input('min_stock');
-        $article->save();
+        DB::table('articles')->insert([
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'category' => $request->input('category'),
+            'stock_tracking' => $stock_tracking,
+            'in_stock' => $request->input('in_stock'),
+            'min_stock' => $request->input('min_stock'),
+            'over_min' => $request->input('in_stock')-$request->input('min_stock') 
+        ]);
 
     }
     

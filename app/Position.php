@@ -44,9 +44,9 @@ class Position extends Model
         for($i=0; $i<count($articles); $i++){
             $positions[$i] = array();
             $positions[$i]['name'] = DB::table('articles')->where('id', $articles[$i])->value('name');
-            $positions[$i]['quantity'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->sum('quantity');
+            $positions[$i]['quantity'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->where('user', '=', $user)->sum('quantity');
             $positions[$i]['price'] = (int)DB::table('articles')->where('id', '=', $articles[$i])->value('price');
-            $positions[$i]['amount'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->sum('cost');
+            $positions[$i]['amount'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->where('user', '=', $user)->sum('cost');
         }
 
         return $positions;
@@ -66,8 +66,8 @@ class Position extends Model
                 $position->user = $users[$i];
                 $position->bill = $bill;
                 $position->article = $article;
-                $position->quantity = (int)DB::table('purchases')->where('article', '=', $article)->sum('quantity');
-                $position->amount = (double)DB::table('purchases')->where('article', '=', $article)->sum('cost');
+                $position->quantity = (int)DB::table('purchases')->where('article', '=', $article)->where('user', '=', $users[$i])->sum('quantity');
+                $position->amount = (double)DB::table('purchases')->where('article', '=', $article)->where('user', '=', $users[$i])->sum('cost');
                 $position->save();
                 
                 //delete purchase

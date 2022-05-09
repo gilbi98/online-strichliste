@@ -15,6 +15,8 @@ class Bill extends Model
         'id', 'created_at', 'updated_at', 'number', 'term', 'user', 'amount', 'total', 'invoice'
     ];
 
+    public $timestamps = true;
+
     public $invoice;
 
     public function __construct()
@@ -126,21 +128,22 @@ class Bill extends Model
         return $billData;
     }
 
-    public function createBills($billData)
+    public function createBills($billData, $invoice)
     {
-        $invoice = DB::table('invoices')->orderBy('id', 'desc')->value('id');
+        //$invoice = DB::table('invoices')->orderBy('id', 'desc')->value('id');
         
         for($i=0; $i<count($billData); $i++){
 
-            $bill = new Bill;
-            $bill->number = $this->generateBillNumber($invoice, $billData[$i]['user']);
-            $bill->term = '2022-1-1';
-            $bill->user = $billData[$i]['user'];
-            $bill->amount = $billData[$i]['amount'];
-            $bill->total = $billData[$i]['amount'];
-            $bill->invoice = $invoice;
-            $bill->open = 1;
-            $bill->save();
+            DB::table('bills')->insert([
+                'number' => $this->generateBillNumber($invoice, $billData[$i]['user']),
+                'created_at' => Carbon::now(),
+                'term' => '2022-1-1',
+                'user' => $billData[$i]['user'],
+                'amount' => $billData[$i]['amount'],
+                'total' => $billData[$i]['amount'],
+                'invoice' => $invoice,
+                'open' => 1
+            ]);
 
         }
     }
@@ -154,7 +157,7 @@ class Bill extends Model
 
     public function getBillAdmin($id)
     {
-        return Bill::select('bills.*', 'bills.id AS id', 'users.firstname', 'users.lastname')->join('users', 'bills.user', '=', 'users.id')->where('invoice', '=', $id)->first();
+        return Bill::select('bills.*', 'bills.id AS id', 'users.firstname', 'users.lastname')->join('users', 'bills.user', '=', 'users.id')->where('bills.id', '=', $id)->first();
     }
 
     public function setBillToPaid($id)

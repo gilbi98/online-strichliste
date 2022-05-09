@@ -38,11 +38,6 @@ class BillController extends Controller
         return view('admin.bill', ['bill' => $this->bill->getBillAdmin($id), 'positions' => $this->bill->getBillPositions($id)]);
     }
 
-    public function setBillStatus($id, $status)
-    {
-
-    }
-
     public function setBillToPaid($id)
     {
         $this->bill->setBillToPaid($id);
