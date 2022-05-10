@@ -14,7 +14,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{Auth::user()->credit}}&#8364;</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+                          
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($total_positions,2)}}&#8364;</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$open_bills}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+                            
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($total_bills,2)}}&#8364;</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+                           
                         </div>
                     </div>
                 </div>
@@ -83,23 +83,27 @@
         
                     @if($purchases->count() > 0)
                         <table class="table">
-                            <tr class="font-weight-bold">
-                                <td>Artikel</td>
-                                <td>Menge</td>
-                                <td>Datum </td>
-                            </tr>
+                            
 
                             @foreach($purchases as $purchase)
                             <tr>
-                                <td>{{$purchase->name}}</td>
-                                <td>{{$purchase->quantity}}</td>                
                                 <td>{{date('d.m.Y', strtotime($purchase->date))}}</td>
+                                <td>{{$purchase->quantity}} x </td> 
+                                <td>{{$purchase->name}}</td>
+                                <td>{{number_format($purchase->cost,2)}}&#8364;</td>            
+                                
                             </tr>
                             @endforeach
+                            
                         </table>
+                        <div class="d-flex justify-content-center">
+                            {{$purchases->links()}}
+                        </div>
                     @else
                         Keine Entnahmen seit der letzten Abrechnung vorhanden
                     @endif
+
+                    
 
                 </div>
             </div>
@@ -114,12 +118,7 @@
                     @if($bills->count() > 0)
 
                         <table class="table">
-                            <tr class="font-weight-bold">
-                                <td>Datum</td>
-                                <td>Betrag</td>
-                                <td>Status</td>
-                            </tr>
-
+                
                             @foreach($bills as $bill)
                             <tr>
                                 <td>
@@ -136,6 +135,9 @@
                             </tr>
                                 @endforeach
                             </table>
+                            <div class="d-flex justify-content-center">
+                                {{$bills->links()}}
+                            </div>
 
                     @else
                         Keine Rechnungen vorhanden

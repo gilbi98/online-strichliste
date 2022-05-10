@@ -130,9 +130,9 @@
                                     <th>Status:</th>
                                     <td>
                                         @if($article->status == 1)
-                                            <span class="badge me-1 bg-success">Aktiv</span>
+                                            <span class="badge me-1 bg-success">Sichtbar</span>
                                         @else
-                                            <span class="badge me-1 bg-secondary">Nicht aktiv</span>
+                                            <span class="badge me-1 bg-secondary">Nicht sichtbar</span>
                                         @endif
                                     </td>
                                 </tr>

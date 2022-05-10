@@ -45,7 +45,7 @@ class Position extends Model
             $positions[$i] = array();
             $positions[$i]['name'] = DB::table('articles')->where('id', $articles[$i])->value('name');
             $positions[$i]['quantity'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->where('user', '=', $user)->sum('quantity');
-            $positions[$i]['price'] = (int)DB::table('articles')->where('id', '=', $articles[$i])->value('price');
+            $positions[$i]['price'] = DB::table('articles')->where('id', '=', $articles[$i])->value('price');
             $positions[$i]['amount'] = (int)DB::table('purchases')->where('article', '=', $articles[$i])->where('user', '=', $user)->sum('cost');
         }
 

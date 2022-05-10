@@ -104,6 +104,13 @@
                     <label class="form-label" for="name">Bis:</label>
                     <input class="form-control" id="end" name="end" type="date" placeholder="Bis">
                 </div>
+                <label class="form-label" for="name">Zahlungsfrist:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Datum</span>
+                    <input class="form-control" type="date" aria-label="Datum" id="term_date" name="term_date">
+                    <span class="input-group-text">Tage</span>
+                    <input class="form-control" type="text" aria-label="Tage" id="term_days" name="term_days">
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">Abbrechen</button>
                     <button class="btn btn-primary" type="submit">Speichern</button>

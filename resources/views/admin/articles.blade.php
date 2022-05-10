@@ -143,7 +143,7 @@
                                     <div>{{$article->id}}</div>
                                     <div class="small text-medium-emphasis">
                                         <span>
-                                            @if($article->status == 1) sichtbar @else nicht sichtbar @endif
+                                            @if($article->status == 1) <span class="badge me-1 rounded-pill bg-success">&nbsp;</span> sichtbar @else <span class="badge me-1 rounded-pill bg-danger">&nbsp;</span> nicht sichtbar @endif
                                         </span>
                                     </div>
                                 </td>
@@ -164,9 +164,9 @@
                                     @if($article->stock_tracking == 1)
                                         {{$article->in_stock}}
                                         @if($article->over_min >= 0)
-                                            <span class="badge me-1 bg-success">Min: {{$article->over_min}}</span>
+                                            <span class="badge me-1 bg-success">{{$article->over_min}} über Min</span>
                                         @else
-                                            <span class="badge me-1 bg-danger">Min: {{$article->over_min}}</span>
+                                            <span class="badge me-1 bg-danger">{{$article->over_min}} unter Min</span>
                                         @endif
                                     @else
                                         -

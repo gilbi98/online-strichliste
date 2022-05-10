@@ -7,6 +7,7 @@ use App\Bill;
 use App\Position;
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
@@ -46,6 +47,13 @@ class InvoiceController extends Controller
         
         $start = $request->input('start');
         $end = $request->input('end');
+        if($request->input('term_date') != null){
+            $term = $request->input('term_date');
+        }
+        else{
+            $term = Carbon::now()->addDays($request->input('term_days'));
+        }
+        
 
         //create invoice only with start and end date
         $this->invoice->createInvoice($start, $end);
@@ -60,7 +68,7 @@ class InvoiceController extends Controller
         $billData = $this->bill->getBillData($users, $start, $end);
         
         //create bills
-        $this->bill->createBills($billData, $invoiceId);
+        $this->bill->createBills($billData, $invoiceId, $term);
 
         //update bill based invoice data
         $bills_total = count($billData);

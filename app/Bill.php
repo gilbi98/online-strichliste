@@ -55,12 +55,12 @@ class Bill extends Model
        
     public function getUsersPurchasesPaginate($user, $paginate)
     {
-        return Purchase::select('purchases.created_at AS date','purchases.quantity AS quantity','articles.name','articles.price',)->join('articles', 'purchases.article', '=', 'articles.id')->where('user', Auth::user()->id)->orderBy('purchases.id', 'desc')->paginate($paginate);
+        return Purchase::select('purchases.created_at AS date','purchases.quantity AS quantity', 'purchases.cost', 'articles.name','articles.price',)->join('articles', 'purchases.article', '=', 'articles.id')->where('user', Auth::user()->id)->orderBy('purchases.id', 'desc')->SimplePaginate(5);
     }
         
     public function getUsersBillsPaginate($user, $paginate)
     {
-        return  DB::table('bills')->where('user', Auth::user()->id)->orderBy('id', 'desc')->paginate($paginate);
+        return  DB::table('bills')->where('user', Auth::user()->id)->orderBy('id', 'desc')->SimplePaginate(5);
     }
 
     //specific bill methods
@@ -128,7 +128,7 @@ class Bill extends Model
         return $billData;
     }
 
-    public function createBills($billData, $invoice)
+    public function createBills($billData, $invoice, $term)
     {
         //$invoice = DB::table('invoices')->orderBy('id', 'desc')->value('id');
         
@@ -137,7 +137,7 @@ class Bill extends Model
             DB::table('bills')->insert([
                 'number' => $this->generateBillNumber($invoice, $billData[$i]['user']),
                 'created_at' => Carbon::now(),
-                'term' => '2022-1-1',
+                'term' => $term,
                 'user' => $billData[$i]['user'],
                 'amount' => $billData[$i]['amount'],
                 'total' => $billData[$i]['amount'],

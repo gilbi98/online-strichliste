@@ -14,7 +14,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($amount,2)}}&#8364;</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+                            
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{date('d.m.Y', strtotime($start_date))}} - {{date('d.m.Y', strtotime($end_date))}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+                           
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{date('d.m.Y', strtotime($term))}} </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+                             
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> 
+                            
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ use App\BillPosition;
 use App\Purchase;
 use App\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use DB;
 use Auth;
 use PDF;
@@ -21,6 +22,8 @@ class BillController extends Controller
     {
         $this->bill = new Bill;
         $this->invoice = new Invoice;
+
+        Paginator::useBootstrap();
     }
 
     public function indexBillsUser()
