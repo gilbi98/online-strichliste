@@ -61,6 +61,11 @@ class Article extends Model
         DB::table('articles')->where(['id' => $article])->update(['in_stock' => $quantity]);
     }
 
+    public function setOverMin($article, $over_min)
+    {
+        DB::table('articles')->where(['id' => $article])->update(['over_min' => $over_min]);
+    }
+
     public function updateArticleData($article, $name, $price, $category, $status)
     {
         if($status == null){
@@ -77,7 +82,9 @@ class Article extends Model
 
     public function updateArticleStockData($article, $in_stock, $min_stock, $stockTracking)
     {
-        DB::table('articles')->where(['id' => $article])->update(['in_stock' => $in_stock, 'min_stock' => $min_stock, 'stockTracking' => $stockTracking]);
+        $over_min = $in_stock - $min_stock;
+        
+        DB::table('articles')->where(['id' => $article])->update(['in_stock' => $in_stock, 'min_stock' => $min_stock, 'over_min' => $over_min, 'stockTracking' => $stockTracking]);
     }
 
     public function updateArticlesStock($request)
@@ -96,6 +103,10 @@ class Article extends Model
             $currentId = $articles[$i];
 
             DB::table('articles')->where(['id' => $currentId])->update(['in_stock' => $newInStocks[$currentId] ]);
+
+            $over_min = $newInStocks[$currentId]  - DB::table('articles')->where('id', $currentId)->value('min_stock');
+            
+            $this->setOverMin($currentId, $over_min);
 
         }
         
@@ -121,6 +132,11 @@ class Article extends Model
             'over_min' => $request->input('in_stock')-$request->input('min_stock') 
         ]);
 
+    }
+
+    public function getMinStock($id)
+    {
+        return DB::table('articles')->where('id', $id)->value('min_stock');
     }
     
        

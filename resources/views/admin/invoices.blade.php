@@ -31,7 +31,7 @@
     <div class="row">
         <div class="container-lg">
             <div class="card mb-4">
-                <div class="card-header">Offene Abrechnungen</div>
+                <div class="card-header">Offene Abrechnungen ({{count($open_invoices)}})</div>
                     <div class="card-body">
                         <div class="row">
                         @if($open_invoices->count() > 0)
@@ -39,7 +39,7 @@
                         <thead class="table-light fw-semibold">
                             <tr class="align-middle">
                                 <th>Zeitraum</th>
-                                <!--<th>Frist</th> -->
+                                <th>Frist</th>
                                 <th>Rechnungen</th>
                                 <th>Betrag</th>
                                 <th>Offene Rechnungen</th>
@@ -56,13 +56,14 @@
                                         {{date('d.m.Y', strtotime($invoice->start_date))}} -  {{date('d.m.Y', strtotime($invoice->end_date))}}
                                     </div>
                                 </td>
-                                <!--
+                                
                                 <td>
                                     <div>
-                                        
+                                    @if(Carbon\Carbon::now() > $invoice->term) <span class="badge me-1 rounded-pill bg-danger">&nbsp;</span> @endif
+                                    {{date('d.m.Y', strtotime($invoice->term))}} 
                                     </div>
                                 </td>
-                                -->
+                                
                                 <td>
                                     <div>
                                         {{$invoice->bills_total}}
@@ -119,7 +120,7 @@
    <!-- closed invoices -->
     <div class="container-lg">
         <div class="card mb-4">
-            <div class="card-header">Geschlossene Abrechnungen</div>
+            <div class="card-header">Geschlossene Abrechnungen ({{count($closed_invoices)}})</div>
                 <div class="card-body">
                     <div class="row">
                     <table class="table border mb-0">
@@ -144,13 +145,13 @@
                                         {{date('d.m.Y', strtotime($invoice->start_date))}} - {{date('d.m.Y', strtotime($invoice->end_date))}}
                                     </div>
                                 </td>
-                                <!--
+                                
                                 <td>
                                     <div>
-                                        
+                                        {{date('d.m.Y', strtotime($invoice->term))}} 
                                     </div>
                                 </td>
-                                -->
+                                
                                 <td>
                                     <div>
                                         {{$invoice->bills_total}}

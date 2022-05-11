@@ -54,9 +54,8 @@ class InvoiceController extends Controller
             $term = Carbon::now()->addDays($request->input('term_days'));
         }
         
-
         //create invoice only with start and end date
-        $this->invoice->createInvoice($start, $end);
+        $this->invoice->createInvoice($start, $end, $term);
 
         //get ID of created invoice
         $invoiceId = DB::table('invoices')->orderBy('id', 'desc')->value('id');

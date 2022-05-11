@@ -9,7 +9,7 @@ use Auth;
 class Invoice extends Model
 {
     protected $fillable = [
-        'id', 'created_at', 'updated_at', 'created_by', 'start_date', 'end_date', 'bills_total', 'bills_open', 'amount_open', 'positions'
+        'id', 'created_at', 'updated_at', 'created_by', 'start_date', 'end_date', 'bills_total', 'bills_open', 'amount_open', 'positions', 'term'
     ];
 
     //Invoices (=Abrechnung) creates the bills for all user who got something in a specific timeslot
@@ -51,11 +51,12 @@ class Invoice extends Model
         return DB::table('invoices')->where('open', '=', 0)->orderBy('id', 'desc')->get();
     }
 
-    public function createInvoice($start, $end)
+    public function createInvoice($start, $end, $term)
     {
         $invoice = new Invoice;
         $invoice->start_date = $start;
         $invoice->end_date = $end;
+        $invoice->term = $term;
         $invoice->created_by = Auth::user()->id;
         $invoice->save();
     }

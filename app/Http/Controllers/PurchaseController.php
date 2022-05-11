@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Purchase;
 use App\Position;
 use App\Invoice;
+use App\Article;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
@@ -15,11 +16,13 @@ class PurchaseController extends Controller
 {
     public $purchase;
     public $invoice;
+    public $article;
 
     public function __construct()
     {
         $this->purchase = new Purchase;
         $this->invoice = new Invoice;
+        $this->article = new Article;
     }
 
     public function index()
@@ -47,6 +50,10 @@ class PurchaseController extends Controller
         $user = Auth::user()->id;
         $article = $request->input('article');
         $quantity = $request->input('quantity');
+        $in_stock = DB::table('articles')->where('id', '=', $article)->value('in_stock');
+        $in_stock = $in_stock - $quantity;
+        $over_min = DB::table('articles')->where('id', '=', $article)->value('over_min');
+        $over_min = $over_min - $quantity;
 
         $price = DB::table('articles')->where('id', '=', $article)->value('price');
         $cost = $price * $quantity;
@@ -58,6 +65,9 @@ class PurchaseController extends Controller
         $purchase->quantity = $request->input('quantity');
         $purchase->cost = $cost;
         $purchase->save();
+
+        $this->article->setInStock($article, $in_stock);
+        $this->article->setOverMin($article, $over_min);
 
         return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
     }
@@ -74,6 +84,10 @@ class PurchaseController extends Controller
         $user = Auth::user()->id;
         $article = $request->input('article');
         $quantity = $request->input('quantity');
+        $in_stock = DB::table('articles')->where('id', '=', $article)->value('in_stock');
+        $in_stock = $in_stock - $quantity;
+        $over_min = DB::table('articles')->where('id', '=', $article)->value('over_min');
+        $over_min = $over_min - $quantity;
 
         $price = DB::table('articles')->where('id', '=', $article)->value('price');
         $cost = $price * $quantity;
@@ -85,6 +99,9 @@ class PurchaseController extends Controller
         $purchase->quantity = $quantity;
         $purchase->cost = $cost;
         $purchase->save();
+
+        $this->article->setInStock($article, $in_stock);
+        $this->article->setOverMin($article, $over_min);
 
         return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
     }

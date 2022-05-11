@@ -63,12 +63,16 @@ class ArticleController extends Controller
     {
         $quantity_new = $this->article->getInStock($request->input('article')) + $request->input('quantity');
 
-        if($this->article->setInStock($request->input('article'), $quantity_new)){
-            return redirect()->route('articles')->with('message', 'Die Auffüllung wurde eingetragen');
-        }
-        else{
-            return redirect()->route('articles')->with('message', 'Es ist ein Fehler aufgetreten');
-        }
+        $min_stock = $this->article->getMinStock($request->input('article'));
+
+        $over_min = $quantity_new - $min_stock;
+
+        $this->article->setInStock($request->input('article'), $quantity_new);
+
+        $this->article->setOverMin($request->input('article'), $over_min);
+
+        return redirect()->route('articles')->with('message', 'Die Auffüllung wurde eingetragen');
+         
     }
 
     public function updateArticleData(Request $request, $id)
@@ -87,7 +91,9 @@ class ArticleController extends Controller
             $st = 1;
         }
 
-        DB::table('articles')->where(['id' => $id])->update(['in_stock' => $request->input('in_stock'), 'min_stock' => $request->input('min_stock'), 'stock_tracking' => $st]);
+        $over_min = $request->input('in_stock') - $request->input('min_stock');
+
+        DB::table('articles')->where(['id' => $id])->update(['in_stock' => $request->input('in_stock'), 'min_stock' => $request->input('min_stock'), 'stock_tracking' => $st, 'over_min' => $over_min]);
 
         return redirect()->route('article', $id)->with('message', 'Die Bestandsdaten wurden geändert');
     }

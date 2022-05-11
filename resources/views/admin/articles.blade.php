@@ -119,7 +119,7 @@
     </button>
 
     <div class="card mb-2">
-        <div class="card-header">Alle Artikel</div>
+        <div class="card-header">Alle Artikel ({{count($articles)}})</div>
             <div class="card-body">
                 <div class="row">
                     <table class="table border mb-0">
@@ -166,10 +166,10 @@
                                         @if($article->over_min >= 0)
                                             <span class="badge me-1 bg-success">{{$article->over_min}} über Min</span>
                                         @else
-                                            <span class="badge me-1 bg-danger">{{$article->over_min}} unter Min</span>
+                                            <span class="badge me-1 bg-danger">{{(-1)*$article->over_min}} unter Min</span>
                                         @endif
                                     @else
-                                        -
+                                        <em>nicht aktiviert</em>
                                     @endif
                                 </td>
                                 <td>                               
