@@ -7,6 +7,7 @@ use App\Position;
 use App\BillPosition;
 use App\Purchase;
 use App\Invoice;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use DB;
@@ -50,9 +51,18 @@ class BillController extends Controller
     
     public function downloadBill($id)
     {
-        $pdf = PDF::loadView('/admin/billPdf');
+        $name = User::select('users.firstname')->join('bills', 'users.id', 'bills.user')->where('bills.id', $id)->get()->first();
 
-        $rechnungsnr = 1234;
+        $bill = DB::table('bills')->where('id', $id)->first();
+
+        $start = $this->bill->getStartDate($id);
+        $end = $this->bill->getEndDate($id);
+
+        $positions = Position::select('positions.*', 'articles.name AS article', 'articles.price AS price')->join('articles', 'positions.article', 'articles.id')->where('positions.bill', $id)->get();
+        
+        $pdf = PDF::loadView('/admin/billPdf', ['name' => $name, 'bill' => $bill, 'positions' => $positions, 'start' => $start, 'end' => $end]);
+
+        $rechnungsnr = DB::table('bills')->where('id', $id)->value('number');
   
         return $pdf->download($rechnungsnr.'.pdf');
 
