@@ -1,5 +1,5 @@
 <div>
-<form method="post" action="{{route('createPurchaseWithCategory')}}">
+<form method="post" action="{{route('createPurchaseWithCategoryOutside')}}">
     @csrf
                                                
         <div class="form-group">

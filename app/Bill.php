@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class Bill extends Model
 {
     protected $fillable = [
-        'id', 'created_at', 'updated_at', 'number', 'term', 'user', 'amount', 'total', 'invoice'
+        'id', 'created_at', 'updated_at', 'number', 'term', 'user', 'amount', 'total', 'invoice', 'payment_method', 'payment_date', 'payment_entry_by'
     ];
 
     public $timestamps = true;
@@ -60,7 +60,7 @@ class Bill extends Model
         
     public function getUsersBillsPaginate($user, $paginate)
     {
-        return  DB::table('bills')->where('user', Auth::user()->id)->orderBy('id', 'desc')->SimplePaginate(5);
+        return  DB::table('bills')->where('user',  )->orderBy('id', 'desc')->SimplePaginate(5);
     }
 
     //specific bill methods
@@ -158,11 +158,12 @@ class Bill extends Model
     public function getBillAdmin($id)
     {
         return Bill::select('bills.*', 'bills.id AS id', 'users.firstname', 'users.lastname')->join('users', 'bills.user', '=', 'users.id')->where('bills.id', '=', $id)->first();
+        //->join('users', 'bills.user', '=', 'users.id')
     }
 
-    public function setBillToPaid($id)
+    public function setBillToPaid($request, $id)
     {
-        DB::table('bills')->where('id', '=', $id)->update(['open' => 0]);
+        DB::table('bills')->where('id', '=', $id)->update(['open' => 0, 'payment_method' => $request->method, 'payment_date' => Carbon::now(), 'payment_entry_by' => Auth::user()->id]);
 
         $this->invoice->updateInvoice($id);
 

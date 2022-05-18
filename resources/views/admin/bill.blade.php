@@ -26,6 +26,40 @@
         @endforeach
     @endif
     
+    <div class="modal fade" id="setPayment" tabindex="-1" aria-labelledby="newArticle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">Bezahlung eintragen</h5>
+            <button class="btn-close" type="button" data-coreui-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="{{ route('billToPaid', $bill->id) }}">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label" for="name">Zahlungsdatum:</label>
+                    <input class="form-control" id="date" name="date" type="date" value="">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="category">Zahlungsmethode:</label>
+                    <select class="form-select" aria-label="Default select example" name="method" id="method">
+                        <option value="1">Bar</option>
+                        <option value="2">Überweisung</option>
+                        <option value="3">Paypal (Manuell)</option>
+                    </select>
+                </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">Abbrechen</button>
+                    <button class="btn btn-primary" type="submit">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    
+
     <div class="row">
         
         <div class="container-lg">
@@ -39,12 +73,10 @@
                                 <th>Aussteller</th>
                                 <td>-</td>
 
-                                <th>Status</th>
+                                <th>Zahlungsdatum</th>
                                 <td>
-                                    @if($bill->open == 1)
-                                        Offen
-                                    @else
-                                        Geschlossen
+                                    @if($bill->payment_date != null) {{date('d.m.Y', strtotime($bill->payment_date))}}
+                                    @else -
                                     @endif
                                 </td>
                             </tr>
@@ -53,16 +85,41 @@
                                 <th>Rechnungsstellung</th>
                                 <td>{{date('d.m.Y', strtotime($bill->created_at))}}</td>
                                 
-                                <th>Zahlungsdatum</th>
-                                <td>-</td>
+                                <th>Zahlungsmethode</th>
+                                <td>
+                                    @if($bill->payment_method != null)
+                                        @if($bill->payment_method == 1) Bar @endif
+                                        @if($bill->payment_method == 2) Überweisung @endif
+                                        @if($bill->payment_method == 3) Paypal (Manuell) @endif
+                                        @if($bill->payment_method == 1) Paypal (Automatisch) @endif
+                                    @else - @endif
+                                </td>
                             </tr>
 
                             <tr class="align-middle">
                                 <th>Frist</th>
                                 <td>{{date('d.m.Y', strtotime($bill->term))}}</td>
 
-                                <th>Zahlungsmethode</th>
-                                <td>-</td>
+                                <th>Zahlungsfeststeller</th>
+                                <td>
+                                    @if($bill->payment_entry_by != null) {{$bill->payment_entry_by}}
+                                    @else -
+                                    @endif
+                                </td>
+                            </tr>
+
+                            <tr class="align-middle">
+                                <th>Status</th>
+                                <td>
+                                    @if($bill->open == 1)
+                                        Offen
+                                    @else
+                                        Geschlossen
+                                    @endif
+                                </td>
+
+                                <th></th>
+                                <td></td>
                             </tr>
 
                         </table>
@@ -101,8 +158,13 @@
                 </div>
             </div>
             
-            <a class="btn btn-primary m-3" href="{{ route('downloadBill', Auth::user()->id)}}" type="button">download</a>
+            <a class="btn btn-outline-primary m-3" href="{{ route('downloadBill', Auth::user()->id)}}" type="button">download</a>
 
+            <button class="btn btn-outline-primary" type="button" data-coreui-toggle="modal" data-coreui-target="#setPayment">
+                <svg class="icon me-2">
+                    <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
+                </svg>Bezahlt
+            </button>
         </div>
     </div>
 @endsection

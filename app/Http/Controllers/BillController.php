@@ -42,11 +42,11 @@ class BillController extends Controller
         return view('admin.bill', ['bill' => $this->bill->getBillAdmin($id), 'positions' => $this->bill->getBillPositions($id)]);
     }
 
-    public function setBillToPaid($id)
+    public function setBillToPaid(Request $request, $id)
     {
-        $this->bill->setBillToPaid($id);
+        $this->bill->setBillToPaid($request, $id);
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Der Rechnungsstatus wurde auf Bezahlt gesetzt');
     }
     
     public function downloadBill($id)

@@ -10,6 +10,7 @@ use DB;
 use Auth;
 use Redirect;
 use Session;
+use Illuminate\Support\Facades\Cookie;
 
 class TallysheetController extends Controller
 {
@@ -27,9 +28,13 @@ class TallysheetController extends Controller
     {
         $articles = DB::table('articles')->get();
 
-        $categories = DB::table('categories')->where('status', '=', 1)->get();
+        $categories = DB::table('categories')->get();
 
-        return view('outside.cart')->with(compact('articles', 'categories'));
+        $cookie = Cookie::get('kiosk');
+
+        $name = DB::table('users')->where('sc', $cookie)->value('firstname');
+
+        return view('user.cartOutside')->with(compact('articles', 'categories', 'cookie', 'name'));
     }
 
 }

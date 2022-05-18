@@ -12,7 +12,7 @@ Auth::routes();
 
 Route::get('/outside', 'TallysheetController@outside_index')->name('outside');
 
-Route::post('/new-purchase-without-category-outside', 'PurchaseController@createPurchaseWithoutCategoryOutside')->name('createPurchaseWithoutCategoryOutside');
+Route::post('/new-purchase-without-category-outside', 'PurchaseController@createPurchaseWithCategoryOutside')->name('createPurchaseWithCategoryOutside');
 
 //User routes
 

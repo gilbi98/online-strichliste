@@ -67,11 +67,6 @@
                                 
                                 <td>
                                     <div>
-                            
-                                        <form method="post" action="{{route('billToPaid', $bill->id)}}">
-                                            @csrf
-                                            <button class="btn btn-primary" type="submit">Bezahlt</button>
-                                        </form>
 
                                         <a class="btn btn-primary" href="{{route('billAdmin', $bill->id)}}" type="button">einsehen</a>
                                     </div>

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use Carbon\Carbon;
-/** use Illuminate\Support\Facades\Cookie; */
+use Illuminate\Support\Facades\Cookie;
 
 class PurchaseController extends Controller
 {
@@ -106,31 +106,38 @@ class PurchaseController extends Controller
         return redirect()->route('cart')->with('message', 'Die Entnahme wurde eingetragen');
     }
 
-    public function createPurchaseWithoutCategoryOutside(Request $request)
+    public function createPurchaseWithCategoryOutside(Request $request)
     { 
 
         $this->validate($request, [
+            'category' => 'required|numeric',
             'article' => 'required|numeric',
             'quantity' => 'required|integer',
-            'ssn_1' => 'required|integer',
-            'ssn_2' => 'required|integer',
-            'ssn_3' => 'required|integer',
-            'ssn_4' => 'required|integer',
         ]);
 
-        $sc = 1234; /** Cookie::get("kiosk_pin"); */
-        
-
-        $user = $this->getUser($request->input('ssn_1'), $request->input('ssn_2'), $request->input('ssn_3'), $request->input('ssn_4'), $sc);
-        
-        if($user == false){
-            return redirect()->route('outside')->withErrors('PIN nicht korrekt oder kein Cookie hinterlegt');
-        }
+        $cookie = Cookie::get('kiosk');
+        $user = DB::table('users')->where('sc', $cookie)->value('id');
 
         $article = $request->input('article');
         $quantity = $request->input('quantity');
+        $in_stock = DB::table('articles')->where('id', '=', $article)->value('in_stock');
+        $in_stock = $in_stock - $quantity;
+        $over_min = DB::table('articles')->where('id', '=', $article)->value('over_min');
+        $over_min = $over_min - $quantity;
 
-        $purchase = $this->store($user, $article, $quantity);
+        $price = DB::table('articles')->where('id', '=', $article)->value('price');
+        $cost = $price * $quantity;
+
+        $purchase = new Purchase;
+        $purchase->date = Carbon::now()->toDateTimeString();
+        $purchase->user = $user;
+        $purchase->article = $article;
+        $purchase->quantity = $quantity;
+        $purchase->cost = $cost;
+        $purchase->save();
+
+        $this->article->setInStock($article, $in_stock);
+        $this->article->setOverMin($article, $over_min);
 
         return redirect()->route('outside')->with('message', 'Die Entnahme wurde eingetragen');
     }

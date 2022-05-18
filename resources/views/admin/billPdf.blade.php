@@ -8,12 +8,18 @@
   <div>
     
      <p style="text-align: right;">
-        Datum: {{date('d.m.Y', strtotime($bill->created_at))}}<br>
+        Abrechnungsdatum: {{date('d.m.Y', strtotime($bill->created_at))}}<br>
         Zeitraum: {{date('d.m.Y', strtotime($start))}} - {{date('d.m.Y', strtotime($end))}}<br><br>
     </p>
      <p style="text-align: right;">
         Rechnungsnummer: <b> {{$bill->number}} </b><br>
     </p>
+
+    <p style="text-align: right;">
+        Abgerufen am: {{date('d.m.Y', strtotime(Carbon\Carbon::now()))}}<br>
+        Zahlungsstatus: @if($bill->open) Ausstehend @else Bezahlt @endif
+    </p>
+
     Moin {{$name->firstname}}, <br><br> hier deine neue Kiosk-Rechnung:<br><br>
 
     <table class="table table-responsive " style="width: 100%;border-collapse: collapse;"> <tbody>
