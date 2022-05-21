@@ -33,6 +33,8 @@ Route::middleware('role:user')->group(function () {
     Route::get('/profil', 'UserController@profil')->name('profil');    
 
     Route::post('/generate-pin', 'UserController@generatePin')->name('generatePin');
+
+    Route::post('/change-password', 'UserController@updatePassword')->name('update-password');
 });
 
 //Admin routes

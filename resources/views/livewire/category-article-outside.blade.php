@@ -33,7 +33,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Speichern</button>
-            
+            <a href="{{ route('login') }}" class="btn btn-secondary" wire:loading.attr="disabled">Zum Login</a>
 </form>
 
 </div>

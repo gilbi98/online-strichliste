@@ -29,7 +29,7 @@ class BillController extends Controller
 
     public function indexBillsUser()
     {
-        return view('user.bills', ['total_positions' => $this->bill->getUsersPositionsAmount(Auth::user()->id), 'open_bills' => $this->bill->getUsersOpenBillsQuantity(Auth::user()->id), 'total_bills' => $this->bill->getUsersOpenBillsAmount(Auth::user()->id), 'purchases' => $this->bill->getUsersPurchasesPaginate(Auth::user()->id, 5), 'bills' => $this->bill->getUsersBillsPaginate(Auth::user()->id, 5), 'last_invoice' => $this->invoice->getLastInvoiceDate()]);
+        return view('user.bills', ['total_positions' => $this->bill->getUsersPurchasesAmount(Auth::user()->id), 'open_bills' => $this->bill->getUsersOpenBillsQuantity(Auth::user()->id), 'total_bills' => $this->bill->getUsersOpenBillsAmount(Auth::user()->id), 'purchases' => $this->bill->getUsersPurchasesPaginate(Auth::user()->id, 5), 'bills' => $this->bill->getUsersBillsPaginate(Auth::user()->id, 5), 'last_invoice' => $this->invoice->getLastInvoiceDate()]);
     }
 
     public function indexBillUser($id)

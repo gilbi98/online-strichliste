@@ -39,12 +39,12 @@
                 @if($name != null)
                 <div class="card h-100 py-1">
                     <div class="card-body">
-                        <div class="text-xl text-success">Moin {{$name}}! Schön, dass Du hier bist.</div>
+                        <div class="text-xl text-success">Moin {{$name}}, gönn dir was schönes </div>
                     </div>
                 </div>
                 @else
                 <div class="alert alert-danger mt-3" role="alert">
-                    Lieber Unbekannter, du musst erst dein Cookie auf deinem Smartphone hinterlegen!
+                    Lieber Unbekannter, auf diesem Gerät ist kein Cookie hinterlegt! <a href="{{ route('login') }}">Zum Login</a>
                 </div>
                 @endif
             </div>

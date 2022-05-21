@@ -35,6 +35,15 @@ class Bill extends Model
         return $amount;
     }
 
+    public function getUsersPurchasesAmount($user)
+    {
+        $amount = 0;
+
+        $amount = DB::table('purchases')->where('user', $user)->sum('cost');
+
+        return $amount;
+    }
+
     public function getUsersOpenBillsQuantity($user)
     {
         $openBills = 0;
@@ -60,7 +69,7 @@ class Bill extends Model
         
     public function getUsersBillsPaginate($user, $paginate)
     {
-        return  DB::table('bills')->where('user',  )->orderBy('id', 'desc')->SimplePaginate(5);
+        return  DB::table('bills')->where('user',  $user)->orderBy('id', 'desc')->SimplePaginate(5);
     }
 
     //specific bill methods
