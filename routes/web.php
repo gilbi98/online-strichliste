@@ -35,6 +35,8 @@ Route::middleware('role:user')->group(function () {
     Route::post('/generate-pin', 'UserController@generatePin')->name('generatePin');
 
     Route::post('/change-password', 'UserController@updatePassword')->name('update-password');
+
+    Route::post('/change-email', 'UserController@updateEmail')->name('update-email');
 });
 
 //Admin routes
@@ -76,6 +78,8 @@ Route::middleware('role:admin')->group(function () {
     Route::post('/billToPaid/{id}', 'BillController@setBillToPaid')->name('billToPaid');
 
     Route::get('download-pdf/{id}', 'BillController@downloadBill')->name('downloadBill');
+
+    Route::get('/users', 'UserController@indexUsers')->name('users');
 
 });
 

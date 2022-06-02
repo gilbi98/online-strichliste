@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <title>Dashboard</title>
+    <title>@yield('title')</title>
 
     <link rel="manifest" href="{{ asset('css/admin/manifest.json') }}">
 
@@ -32,6 +32,7 @@
     
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/all.min.css">
     
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-1"></script>
@@ -58,37 +59,25 @@
       </div>
       <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
         <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> Übersicht</a>
+          <div class="nav-icon"><i class="cil-home"></i></div> Übersicht</a>
         </li>
         <li class="nav-title">Bestandsmanagement</li>
         <li class="nav-item"><a class="nav-link" href="{{ route('articles') }}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-            </svg> Artikel</a>
+          <div class="nav-icon"><i class="cil-fridge"></i></div> Artikel</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="{{ route('categories') }}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-            </svg> Kategorien</a>
+          <div class="nav-icon"><i class="cil-folder"></i></div> Kategorien</a>
         </li>
         <li class="nav-title">Abrechnungsmanagement</li>
         <li class="nav-item"><a class="nav-link" href="{{ route('purchases') }}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-            </svg> Entnahmen</a>
+          <div class="nav-icon"><i class="cil-cart"></i></div> Entnahmen</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="{{ route('invoices') }}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-            </svg> Abrechnungen</a>
+          <div class="nav-icon"><i class="cil-money"></i></div> Abrechnungen</a>
         </li>
         <li class="nav-title">Usermanagement</li>
-        <li class="nav-item"><a class="nav-link" href="typography.html">
-            <svg class="nav-icon">
-            <i class="cil-child"></i>
-            </svg> User</a>
+        <li class="nav-item"><a class="nav-link" href="{{ route('users') }}">
+        <div class="nav-icon"><i class="cil-user"></i></div> Nutzer</a>
     </li>
         
       </ul>
@@ -101,10 +90,7 @@
             <svg class="icon icon-lg">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
             </svg>
-          </button><a class="header-brand d-md-none" href="#">
-            <svg width="118" height="46" alt="CoreUI Logo">
-              <use xlink:href="assets/brand/coreui.svg#full"></use>
-            </svg></a>
+          </button>
           <ul class="header-nav d-none d-md-flex">
             <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Übersicht</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('articles') }}">Bestände</a></li>

@@ -27,9 +27,12 @@
                 <button type="submit" class="btn btn-lg btn-primary py-0 mt-2">
                     <i class="bi bi-box-arrow-in-right"></i> {{ __('Login') }}
                 </button>
+                <p class="mt-3 mb-3">
+                    <a href="{{ route('register') }}"  class="">Registrieren</a>
+                </p>
 
                 <!-- only used for development and testing system -->
-                <p class="mt-3 mb-3 text-muted">Strichliste</p><p class="mt-1 text-muted bg-warning text-danger" style="color: red !important; background-color: gold !important">ENTWICKLUNGSSYSTEM</p>
+                <p class="mt-1 text-muted bg-warning text-danger" style="color: red !important; background-color: gold !important">ENTWICKLUNGSSYSTEM</p>
             </form>
 
         </div>

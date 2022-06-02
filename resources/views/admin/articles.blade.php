@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('currentSide')
+@section('title')
     Artikel
 @endsection
 
@@ -181,6 +181,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+                {{$articles->links()}}
             </div>
         </div>
         <a class="btn btn-primary mb-2 py-0" type="button" href="{{ route('stock') }}">Bestände korrigieren</a>

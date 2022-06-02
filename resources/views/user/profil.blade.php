@@ -45,7 +45,7 @@
         </div>
     </div>
 </div>
-<!--
+
 <div class="container-fluid">
     <div class="row justify-content-center">
     	<div class="col-xl-8 mb-2 ml-0 mt-2">
@@ -54,8 +54,29 @@
                 <div class="card-body">
     
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Deine E-Mail</div>
-    
                     
+                    <form action="{{ route('update-email') }}" method="POST">
+                        @csrf
+                            @if (session('email'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('email') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            @elseif (session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <div class="mb-3">
+                                <input name="email" type="text" class="form-control @error('new_password') is-invalid @enderror" id="email" placeholder="{{$email}}">
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </input>
+                            </div>
+
+                            <button class="btn btn-primary ml-3">Speichern</button>
+                    </form>                
 
                     </div>
                 </div>
@@ -64,7 +85,7 @@
         </div>
     </div>
 </div>
--->
+
 <div class="container-fluid">
     <div class="row justify-content-center">
     	<div class="col-xl-8 mb-2 ml-0 mt-2">
@@ -80,6 +101,7 @@
                             @if (session('status'))
                                 <div class="alert alert-success" role="alert">
                                     {{ session('status') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </div>
                             @elseif (session('error'))
                                 <div class="alert alert-danger" role="alert">
@@ -109,7 +131,7 @@
                         </div>
 
                         
-                        <button class="btn btn-success ml-3">Speichern</button>
+                        <button class="btn btn-primary ml-3">Speichern</button>
                         
 
                     </form>

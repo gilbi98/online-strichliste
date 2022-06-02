@@ -61,6 +61,11 @@ class ArticleController extends Controller
 
     public function refill(Request $request)
     {
+        $this->validate($request, [
+            'article' => 'required',
+            'quantity' => 'required|integer'
+        ]);
+        
         $quantity_new = $this->article->getInStock($request->input('article')) + $request->input('quantity');
 
         $min_stock = $this->article->getMinStock($request->input('article'));

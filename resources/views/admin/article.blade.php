@@ -1,14 +1,7 @@
 @extends('admin.master')
 
-@section('currentSide')
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb my-0 ms-2">
-        <li class="breadcrumb-item">
-            <span>Artikel</span>
-        </li>
-        <li class="breadcrumb-item active"><span>{{$article->name}}</span></li>
-    </ol>
-</nav>
+@section('title')
+    {{$article->name}}
 @endsection
 
 @section('content')

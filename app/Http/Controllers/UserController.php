@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function profil()
     {
-        return view('user.profil', ['cookieStored' => $this->user->checkForCookie(Auth::user()->id), 'PinGenerated' => $this->user->checkForPin(Auth::user()->id)]);        
+        return view('user.profil', ['cookieStored' => $this->user->checkForCookie(Auth::user()->id),'email' => $this->user->getEmail(Auth::user()->id), 'PinGenerated' => $this->user->checkForPin(Auth::user()->id)]);        
     }
 
     public function generatePin()
@@ -54,5 +54,23 @@ class UserController extends Controller
         ]);
 
         return back()->with("status", "Passwort wurde geändert");
+    }
+
+    public function updateEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+        ]);
+
+        User::whereId(auth()->user()->id)->update([
+            'email' => $request->email
+        ]);
+
+        return back()->with("email", "Email wurde geändert");
+    }
+
+    public function indexUsers()
+    {
+        return view('admin.users', ['users' => $this->user->getUsers(), 'usersPayment' => $this->user->getUsersPaymentData()]);
     }
 }

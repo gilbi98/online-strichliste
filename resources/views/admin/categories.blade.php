@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('currentSide')
+@section('title')
     Kategorien
 @endsection
 

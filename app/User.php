@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Collection;
 
 class User extends Authenticatable
 {
@@ -87,5 +90,34 @@ class User extends Authenticatable
         else{
             return false;
         }
+    }
+
+    public function getEmail($id)
+    {
+        return DB::table('users')->where('id', $id)->value('email');
+    }
+
+    public function getUsers()
+    {
+        return DB::table('users')->simplePaginate(10);
+    }
+
+    public function getUsersPaymentData()
+    {
+        $usersId = DB::table('users')->pluck('id')->toArray();
+
+        $usersPayment = array();
+
+        for($i=0; $i<count($usersId); $i++){
+
+            $usersPayment[$i] = array();
+
+            $usersPayment[$i]['id'] = $usersId[$i];
+            $usersPayment[$i]['open_bills'] = DB::table('bills')->where('user', $usersId[$i])->where('open', 1)->count('id');
+            $usersPayment[$i]['open_bills_amount'] = DB::table('bills')->where('user', $usersId[$i])->where('open', 1)->sum('total');
+            $usersPayment[$i]['purchases'] = DB::table('purchases')->where('user', $usersId[$i])->sum('cost');
+        }
+
+        return $usersPayment;
     }
 }

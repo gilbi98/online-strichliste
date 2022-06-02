@@ -28,7 +28,7 @@ class Article extends Model
 
     public function getArticles()
     {
-        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->select('articles.*', 'categories.name AS category_name')->get();
+        return DB::table('articles')->leftJoin('categories', 'articles.category', 'categories.id')->select('articles.*', 'categories.name AS category_name')->simplePaginate(10);
     }
 
     public function getArticlesWithTracking()
