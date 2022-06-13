@@ -37,6 +37,7 @@
                                 <th>Offene Rechnungen</th>
                                 <th>Offene Rechnungsbeträge</th>
                                 <th>Offene Entnahmen</th>
+                                <th></th>
                             </tr>
                         </thead>
                         
@@ -78,6 +79,21 @@
                                     {{number_format($userPayment['purchases'],2)}}&#8364;
                                     </div>
                                 </td>
+                                <td> 
+                                    @if(auth()->user()->id != $user->id)
+                                    @if($user->role == 0)                            
+                                    <form method="post" action="{{ route('userToAdmin', $user->id) }}">
+                                        @csrf
+                                        <button class="btn btn-primary py-0" type="submit">Zum Admin</button>
+                                    </form>
+                                    @else
+                                    <form method="post" action="{{ route('userToUser', $user->id) }}">
+                                        @csrf
+                                        <button class="btn btn-primary py-0" type="submit">Zum User</button>
+                                    </form>
+                                    @endif
+                                </td>
+                                @endif
                                 @endif
                                 @endforeach
                             </tr>

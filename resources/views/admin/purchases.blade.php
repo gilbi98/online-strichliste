@@ -71,9 +71,7 @@
         </div>
         @if(count($purchases) > 0)
         <button class="btn btn-outline-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newInvoice">
-            <svg class="icon me-2">
-                <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
-            </svg>Abrechnen
+        <i class="cil-money"></i> Abrechnen
         </button>
         @endif
     </div>

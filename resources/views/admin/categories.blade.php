@@ -50,9 +50,7 @@
 
     <!-- content of site -->
     <button class="btn btn-outline-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newCategory">
-        <svg class="icon me-2">
-            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
-        </svg>Neue Kategorie
+        Neue Kategorie
     </button>
     <div class="card mb-2">
         <div class="card-header">Alle Kategorien</div>

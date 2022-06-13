@@ -91,7 +91,7 @@
                                         @if($bill->payment_method == 1) Bar @endif
                                         @if($bill->payment_method == 2) Überweisung @endif
                                         @if($bill->payment_method == 3) Paypal (Manuell) @endif
-                                        @if($bill->payment_method == 1) Paypal (Automatisch) @endif
+                                        @if($bill->payment_method == 4) Paypal (Automatisch) @endif
                                     @else - @endif
                                 </td>
                             </tr>
@@ -155,16 +155,16 @@
                         </table>
                         </div>
                     </div>
+                    
                 </div>
+                <a class="btn btn-outline-primary" href="{{ route('downloadBill', Auth::user()->id)}}" type="button">download</a>
+
+                <button class="btn btn-outline-primary" type="button" data-coreui-toggle="modal" data-coreui-target="#setPayment">
+                    Bezahlt
+                </button>
             </div>
             
-            <a class="btn btn-outline-primary m-3" href="{{ route('downloadBill', Auth::user()->id)}}" type="button">download</a>
-
-            <button class="btn btn-outline-primary" type="button" data-coreui-toggle="modal" data-coreui-target="#setPayment">
-                <svg class="icon me-2">
-                    <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
-                </svg>Bezahlt
-            </button>
+           
         </div>
     </div>
 @endsection

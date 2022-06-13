@@ -93,7 +93,7 @@
 
                                 <td>
                                     <div>
-                                        <a class="btn btn-primary" href="{{ route('invoice', $invoice->id)}}" type="button">einsehen</a>
+                                        <a class="btn btn-primary" href="{{ route('invoice', $invoice->id)}}" type="button"><i class="cil-arrow-right"></i></a>
                                     </div>
                                 </td>
                                   
@@ -181,7 +181,7 @@
 
                                 <td>
                                     
-                                    <a class="btn btn-primary" href="{{ route('invoice', $invoice->id)}}" type="button">einsehen</a>
+                                    <a class="btn btn-primary" href="{{ route('invoice', $invoice->id)}}" type="button"><i class="cil-arrow-right"></i></a>
                                     
                                 </td>
                                   

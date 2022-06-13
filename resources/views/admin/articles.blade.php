@@ -108,14 +108,10 @@
 <!-- buttons and content below -->
 <div class="container-lg">
     <button class="btn btn-outline-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newArticle">
-        <svg class="icon me-2">
-            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
-        </svg>Neuer Artikel
+       Neuer Artikel
     </button>
     <button class="btn btn-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newFillUp">
-        <svg class="icon me-2">
-            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
-        </svg>Artikel auffüllen
+        Artikel auffüllen
     </button>
 
     <div class="card mb-2">
@@ -173,7 +169,7 @@
                                     @endif
                                 </td>
                                 <td>                               
-                                    <a class="btn btn-primary" href="{{ route('article', $article->id) }}" type="button">einsehen</a>
+                                    <a class="btn btn-primary" href="{{ route('article', $article->id) }}" type="button" data-coreui-toggle="tooltip" data-coreui-placement="top" title="Tooltip on top"><i class="cil-pen"></i></a>
                                 </td>
                             </tr>
                             @endforeach

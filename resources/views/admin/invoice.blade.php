@@ -64,7 +64,7 @@
                                 <td>
                                     <div>
 
-                                        <a class="btn btn-primary" href="{{route('billAdmin', $bill->id)}}" type="button">einsehen</a>
+                                        <a class="btn btn-primary" href="{{route('billAdmin', $bill->id)}}" type="button"><i class="cil-arrow-right"></i></a>
                                     </div>
                                    
                                 </td>
@@ -120,7 +120,7 @@
                                 
                                 <td>
                                     <div>
-                                        <a class="btn btn-primary" href="{{route('billAdmin', $bill->id)}}" type="button">einsehen</a>
+                                        <a class="btn btn-primary" href="{{route('billAdmin', $bill->id)}}" type="button"><i class="cil-arrow-right"></i></a>
                                     </div>
                                 </td>
                                 

@@ -37,6 +37,7 @@ Route::middleware('role:user')->group(function () {
     Route::post('/change-password', 'UserController@updatePassword')->name('update-password');
 
     Route::post('/change-email', 'UserController@updateEmail')->name('update-email');
+
 });
 
 //Admin routes
@@ -80,6 +81,10 @@ Route::middleware('role:admin')->group(function () {
     Route::get('download-pdf/{id}', 'BillController@downloadBill')->name('downloadBill');
 
     Route::get('/users', 'UserController@indexUsers')->name('users');
+
+    Route::post('/user-to-admin/{id}', 'UserController@setUserToAdmin')->name('userToAdmin');
+
+    Route::post('/user-to-user/{id}', 'UserController@setUserToUser')->name('userToUser');
 
 });
 

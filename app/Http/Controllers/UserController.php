@@ -73,4 +73,23 @@ class UserController extends Controller
     {
         return view('admin.users', ['users' => $this->user->getUsers(), 'usersPayment' => $this->user->getUsersPaymentData()]);
     }
+
+    public function setUserToAdmin($id)
+    {
+        $newRole = 1;
+
+        $this->user->setRole($id, $newRole);
+
+        return back()->with('message', "Die Rolle wurde geändert");
+    }
+
+    public function setUserToUser($id)
+    {
+        $newRole = 0;
+        
+        $this->user->setRole($id, $newRole);
+
+        return back()->with('message', "Die Rolle wurde geändert");
+    }
+
 }

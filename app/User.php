@@ -120,4 +120,9 @@ class User extends Authenticatable
 
         return $usersPayment;
     }
+
+    public function setRole($id, $newRole)
+    {
+        DB::table('users')->where('id', $id)->update(['role' => $newRole]);
+    }
 }
