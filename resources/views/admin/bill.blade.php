@@ -157,10 +157,10 @@
                     </div>
                     
                 </div>
-                <a class="btn btn-outline-primary" href="{{ route('downloadBill', Auth::user()->id)}}" type="button">download</a>
+                <a class="btn btn-outline-primary" href="{{ route('downloadBill', $bill->id)}}" type="button"><i class="cil-file"></i> Download</a>
 
                 <button class="btn btn-outline-primary" type="button" data-coreui-toggle="modal" data-coreui-target="#setPayment">
-                    Bezahlt
+                    <i class="cil-check"></i> Bezahlt
                 </button>
             </div>
             

@@ -178,4 +178,13 @@ class Bill extends Model
 
     }
        
+    public function getNumberOfOpenBills()
+    {
+        return DB::table('bills')->where('open', 1)->count('id');
+    }
+
+    public function getAmountOfOpenBills()
+    {
+        return DB::table('bills')->where('open', 1)->sum('total');
+    }
 }

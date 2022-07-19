@@ -33,4 +33,14 @@ class Purchase extends Model
         return $articles;
 
     }
+
+    public function getNumberOfOpenPurchases()
+    {
+        return DB::table('purchases')->count('id');
+    }
+
+    public function getAmountOfOpenPurchases()
+    {
+        return DB::table('purchases')->sum('cost');
+    }
 }

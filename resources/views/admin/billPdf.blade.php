@@ -17,7 +17,7 @@
 
     <p style="text-align: right;">
         Abgerufen am: {{date('d.m.Y', strtotime(Carbon\Carbon::now()))}}<br>
-        Zahlungsstatus: @if($bill->open) Ausstehend @else Bezahlt @endif
+        Zahlung: @if($bill->open) Ausstehend @else Erfolgt @endif
     </p>
 
     Moin {{$name->firstname}}, <br><br> hier deine neue Kiosk-Rechnung:<br><br>

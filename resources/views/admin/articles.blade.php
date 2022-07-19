@@ -108,7 +108,7 @@
 <!-- buttons and content below -->
 <div class="container-lg">
     <button class="btn btn-outline-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newArticle">
-       Neuer Artikel
+    <i class="cil-plus"></i> Neuer Artikel
     </button>
     <button class="btn btn-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newFillUp">
         Artikel auffüllen

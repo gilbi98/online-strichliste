@@ -15,7 +15,8 @@
         "laravel/framework": "^9.0",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
-        "livewire/livewire": "^2.10"
+        "livewire/livewire": "^2.10",
+        "srmklive/paypal": "^3.0"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

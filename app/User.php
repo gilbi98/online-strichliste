@@ -102,6 +102,11 @@ class User extends Authenticatable
         return DB::table('users')->simplePaginate(10);
     }
 
+    public function getNumberOfUser()
+    {
+        return DB::table('users')->count('id');
+    }
+
     public function getUsersPaymentData()
     {
         $usersId = DB::table('users')->pluck('id')->toArray();
@@ -125,4 +130,10 @@ class User extends Authenticatable
     {
         DB::table('users')->where('id', $id)->update(['role' => $newRole]);
     }
+
+    public function getCriticalUser()
+    {
+        return User::select('users.firstname', 'users.lastname')->join('bills', 'user.id', 'bill.user')->where('users.role' == 1)->get();
+    }
+
 }

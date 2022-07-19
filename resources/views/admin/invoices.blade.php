@@ -86,7 +86,7 @@
                                     <div>
                                         <div class="clearfix">
                                             <div class="progress progress-thin">
-                                                <div class="progress-bar bg-info" role="progressbar" style="width: {{100-(($invoice->bills_open) / ($invoice->bills_total))*100}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: @if($invoice->bills_total > 0) {{100-(($invoice->bills_open) / ($invoice->bills_total))*100}}% @else 0 @endif" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                     </div>
                                 </td>
@@ -174,7 +174,7 @@
                                     <div>
                                         <div class="clearfix">
                                             <div class="progress progress-thin">
-                                                <div class="progress-bar bg-info" role="progressbar" style="width: {{100-(($invoice->bills_open) / ($invoice->bills_total))*100}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: @if($invoice->bills_total > 0) {{100-(($invoice->bills_open) / ($invoice->bills_total))*100}}% @else 0 @endif" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                     </div>
                                 </td>

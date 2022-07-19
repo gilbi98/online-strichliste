@@ -66,6 +66,11 @@ class Article extends Model
         DB::table('articles')->where(['id' => $article])->update(['over_min' => $over_min]);
     }
 
+    public function getNumberOfArticles()
+    {
+        return DB::table('articles')->count('id');
+    }
+
     public function updateArticleData($article, $name, $price, $category, $status)
     {
         if($status == null){
@@ -139,5 +144,8 @@ class Article extends Model
         return DB::table('articles')->where('id', $id)->value('min_stock');
     }
     
-       
+    public function getCriticalArticles()
+    {
+        return DB::table('articles')->where('over_min', '<', 4)->where('stock_tracking', 1)->get();
+    }
 }

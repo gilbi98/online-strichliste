@@ -7,6 +7,10 @@ use DB;
 use Auth;
 use App\Position;
 use App\Invoice;
+use App\User;
+use App\Article;
+use App\Purchase;
+use App\Bill;
 
 class HomeController extends Controller
 {
@@ -16,6 +20,10 @@ class HomeController extends Controller
     {
         $this->position = new Position;
         $this->invoice = new Invoice;
+        $this->user = new User;
+        $this->purchase = new Purchase;
+        $this->article = new Article;
+        $this->bill = new Bill;
         $this->middleware('auth');
     }
 
@@ -26,7 +34,7 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+        return view('admin.dashboard', ['user' => $this->user->getNumberOfUser(), 'articles' => $this->article->getNumberOfArticles(), 'purchases' => $this->purchase->getNumberOfOpenPurchases(), 'purchasesAmount' => $this->purchase->getAmountOfOpenPurchases(), 'openBills' => $this->bill->getNumberOfOpenBills(), 'openBillsAmount' => $this->bill->getAmountOfOpenBills(), 'criticalArticles' => $this->article->getCriticalArticles()]);
     }
 }
 

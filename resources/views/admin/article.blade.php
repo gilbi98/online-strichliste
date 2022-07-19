@@ -132,9 +132,7 @@
                             </table>
                         </div>
                         <button class="btn btn-outline-primary mt-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#changeArticleData">
-                            <svg class="icon me-2">
-                                <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
-                            </svg>Stammdaten ändern
+                            <i class="cil-pen"></i> Stammdaten ändern
                         </button>
                     </div>
                 </div>
@@ -169,9 +167,8 @@
                         </table>
                         </div>
                         <button class="btn btn-outline-primary mt-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#changeStockData">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-contrast"></use>
-                        </svg>Bestandsdaten ändern
+                            <i class="cil-pen"></i>
+                             Bestandsdaten ändern
                     </button>
                     </div>
                 </div>

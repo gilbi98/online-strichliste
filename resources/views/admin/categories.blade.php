@@ -50,7 +50,7 @@
 
     <!-- content of site -->
     <button class="btn btn-outline-primary mb-2 py-0" type="button" data-coreui-toggle="modal" data-coreui-target="#newCategory">
-        Neue Kategorie
+    <i class="cil-plus"></i> Neue Kategorie
     </button>
     <div class="card mb-2">
         <div class="card-header">Alle Kategorien</div>
