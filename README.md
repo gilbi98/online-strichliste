@@ -1,7 +1,7 @@
 
 ## Online Strichliste für Vereine, Firmen und Organisationen
 
-Die Online-Strichliste ist eine Webapplikation basiert auf Laravel, die papierbasierte Strichlisten (bspw. in Kaffee-Küchen) vollständig digitalisiert. Dabei wird sowohl das Eintragen von Entnahmen (Strich machen) als auch die Abrechnung und Administration vollständig unterstützt. Nutzer können im Portal ein Private Key auf ihrem Endgerät setzen, sodass die Strichliste den Nutzer erkennt und für das Eintragen einer Entnahme kein Login nötig ist. Die Strichliste wird durch das Scannen eines QR-Codes geöffnet.
+Die Online-Strichliste ist eine Webapplikation basierend auf Laravel, die papierbasierte Strichlisten (bspw. in Kaffee-Küchen) vollständig digitalisiert. Dabei wird sowohl das Eintragen von Entnahmen (Strich machen) als auch die Abrechnung und Administration vollständig unterstützt. Nutzer können im Portal ein Private Key auf ihrem Endgerät setzen, sodass die Strichliste den Nutzer erkennt und für das Eintragen einer Entnahme kein Login nötig ist. Die Strichliste wird durch das Scannen eines QR-Codes geöffnet.
 
 ## Features
 
